@@ -1,0 +1,124 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import FeaturesSection from "../components/Features.astro";
+import ZigZagLayout from "../components/ZigZagLayout.astro";
+import Contact from "../components/Contact.astro";
+
+import garazImg from "../assets/img/garaz.jpeg";
+import dvoukridlaImg from "../assets/img/dvoukridla_vrata.jpg";
+import rolovaciImg from "../assets/img/rolovaci-vrata.jpeg";
+
+import { Zap, ShieldCheck, Wrench, Clock } from "@lucide/astro";
+
+const gateFeatures = [
+    {
+        icon: Zap,
+        title: "Rychlá montáž",
+        description: "Namontuji vrata během jediného dne.",
+    },
+    {
+        icon: ShieldCheck,
+        title: "Bezpečnost",
+        description: "Moderní systémy pro maximální zabezpečení.",
+    },
+    {
+        icon: Wrench,
+        title: "Profesionální servis",
+        description: "Zajišťuji záruční i pozáruční servis.",
+    },
+    {
+        icon: Clock,
+        title: "Dlouhá životnost",
+        description: "Kvalitní materiály",
+    },
+];
+
+const gateTypes = [
+    {
+        title: "Sekční vrata",
+        description:
+            "Sekční vrata jsou ideální pro garáže s většími rozměry...",
+        imageSrc: garazImg,
+        features: [
+            "Otevírání pod strop šetří místo",
+            "Výborná tepelná a zvuková izolace",
+            "Vhodná pro dálkové ovládání",
+            "Elegantní moderní vzhled",
+            "Zvýšená bezpečnost",
+        ],
+        buttonLink: "#kontakt",
+    },
+    {
+        title: "Dvoukřídlá vrata",
+        description: "Klasické řešení v moderním kabátě...",
+        imageSrc: dvoukridlaImg,
+        features: [
+            "Jednoduchá konstrukce a snadná údržba",
+            "Nezávislá na výšce stropu",
+            "Možnost otevírat pouze jedno křídlo",
+            "Dlouhá životnost",
+            "Rustikální vzhled",
+        ],
+        buttonLink: "#kontakt",
+    },
+    {
+        title: "Rolovací vrata",
+        description: "Úsporné řešení pro garáže s minimálním prostorem...",
+        imageSrc: rolovaciImg,
+        features: [
+            "Maximální úspora místa",
+            "Montáž možná před, do i za otvor",
+            "Snadné ovládání",
+            "Hliníkové lamely",
+            "Ochrana proti zvednutí",
+        ],
+        buttonLink: "#kontakt",
+    },
+];
+---
+
+<Layout
+    title="Garážová vrata na míru | Travas Stínění"
+    description="Sekční, rolovací i dvoukřídlá garážová vrata s odbornou montáží."
+>
+    <HeroSection
+        title="Bezpečnost a spolehlivost – garážová vrata na míru vašemu domu"
+        backgroundImage={garazImg}
+        placeholderColor="#5ca437"
+    />
+
+    <section class="py-16 md:py-24 cs-container">
+        <Breadcrumb
+            items={[{ title: "Domů", href: "/" }, { title: "Garážová vrata" }]}
+            aria-label="Breadcrumb"
+        />
+
+        <div class="col-span-12 px-6 md:px-16 py-12">
+            <FeaturesSection features={gateFeatures}>
+                <h2
+                    slot="title"
+                    class="font-bold text-3xl md:text-5xl text-center"
+                    aria-label="Section Title"
+                >
+                    <span class="text-foreground">Vrata</span>, která{" "}
+                    <span class="text-foreground">splní</span>{" "}
+                    vaše{" "}
+                    <span class="text-foreground"> očekávání </span>
+                </h2>
+            </FeaturesSection>
+        </div>
+
+        <h2 class="mb-20 font-bold text-4xl text-center">
+            Typy{" "}
+            <span class="text-foreground">garážových vrat</span>
+        </h2>
+
+        <!-- ZigZagLayout -->
+        <ZigZagLayout items={gateTypes} />
+    </section>
+
+    <!-- Contact -->
+    <Contact />
+</Layout>

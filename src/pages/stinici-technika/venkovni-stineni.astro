@@ -1,0 +1,245 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getImage } from "astro:assets";
+
+import HeroSection from "../../components/HeroSection.astro";
+import Contact from "../../components/Contact.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import Card from "../../components/venkovni-stineni/Cards.astro";
+
+import imgRoletyPriznane from "../../assets/img/IMG_7776.jpeg";
+import imgRoletyPodomitkove from "../../assets/img/podomitka_rolety_venek.jpg";
+import imgZaluziePriznane from "../../assets/img/priznana_venkovni_zaluzie.jpeg";
+import imgZaluziePodomitkove from "../../assets/img/zaluzie_venek_podomitka.png";
+import imgScreenPriznane from "../../assets/img/screen_prizn.png";
+import imgScreenPodomitkove from "../../assets/img/screen_podomitka.png";
+import imgVerandaKulaty from "../../assets/img/veranda_kulaty_box.jpg";
+import imgVerandaHranaty from "../../assets/img/veranda_hranaty_box.jpg";
+
+import heroImg from "../../assets/img/external_venetian_blind.jpg";
+
+
+const breadcrumbItems = [
+    { title: "Domů", href: "/" },
+    { title: "Stínicí technika", href: "/stinici-technika" },
+    { title: "Venkovní stínění" },
+];
+
+const statsPredokenni = {
+    warmSecurity: { label: "Ochrana proti teplu", value: 5 },
+    blindness: { label: "Zatemnění", value: 5 },
+    isolation: { label: "Tepelná izolace", value: 5 },
+    security: { label: "Bezpečnostní ochrana", value: 5 },
+    deafness: { label: "Odhlučnění", value: 5 },
+};
+
+const statsZaluzie = {
+    warmSecurity: { label: "Ochrana proti teplu", value: 4 },
+    blindness: { label: "Zatemnění", value: 4 },
+    isolation: { label: "Tepelná izolace", value: 3 },
+    security: { label: "Bezpečnostní ochrana", value: 2 },
+    deafness: { label: "Odhlučnění", value: 2 },
+};
+
+const statsScreeny = {
+    warmSecurity: { label: "Ochrana proti teplu", value: 5 },
+    blindness: { label: "Zatemnění", value: 3 },
+    isolation: { label: "Tepelná izolace", value: 2 },
+    security: { label: "Bezpečnostní ochrana", value: 1 },
+    deafness: { label: "Odhlučnění", value: 1 },
+};
+
+const statsVeranda = {
+    warmSecurity: { label: "Ochrana proti teplu", value: 4 },
+    blindness: { label: "Zatemnění", value: 4 },
+    isolation: { label: "Tepelná izolace", value: 3 },
+    security: { label: "Bezpečnostní ochrana", value: 2 },
+    deafness: { label: "Odhlučnění", value: 2 },
+};
+---
+
+<Layout title="Venkovní stínění | Travas Stínění">
+    <HeroSection
+        client:load
+        title="Elegantní ochrana proti slunci i horku – venkovní stínění pro vaše pohodlí po celý rok"
+        backgroundImage={heroImg}
+        placeholderColor="#5ca437"
+    />
+
+    <section class="py-20">
+        <div
+            class="flex flex-col gap-12 md:grid md:grid-cols-12 w-full cs-container"
+        >
+            <Breadcrumb items={breadcrumbItems} />
+
+            <div class="space-y-12 md:col-span-12">
+                <h2 class="mb-12 font-bold text-3xl md:text-5xl text-center">
+                    Typy <span class="text-foreground">venkovního stínění</span>
+                </h2>
+
+                <!-- 1) Předokenní rolety -->
+                <Card
+                    title="Předokenní rolety"
+                    image1={imgRoletyPriznane}
+                    image2={imgRoletyPodomitkove}
+                    stats={statsPredokenni}
+                    subtitle2="2 varianty provedení"
+                    variant1="Přiznané"
+                    variant2="Podomítkové"
+                >
+                    <p>
+                        Předokenní rolety <strong
+                            >zajišťují výbornou ochranu</strong
+                        > před horkem i hlukem díky izolační výplni. Spolehlivě <strong
+                            >odolávají</strong
+                        > nepřízni počasí a <strong>přidávají</strong> vašemu domovu
+                        na bezpečí i komfortu.
+                    </p>
+                </Card>
+
+                <!-- 2) Venkovní žaluzie -->
+                <Card
+                    title="Venkovní žaluzie"
+                    image1={imgZaluziePriznane}
+                    image2={imgZaluziePodomitkove}
+                    stats={statsZaluzie}
+                    subtitle2="2 varianty provedení"
+                    variant1="Přiznané"
+                    variant2="Podomítkové"
+                >
+                    <p>
+                        Venkovní žaluzie vám dávají plnou kontrolu nad světlem i
+                        teplotou v interiéru. Pomáhají udržet příjemné klima a
+                        zároveň šetří energii i náklady. Jsou k <strong
+                            >dispozici i jako šikmé žaluzie</strong
+                        >.
+                    </p>
+
+                    <!-- Zde využíváme NAMED SLOT z Astra pro vložení lamel! -->
+                    <div
+                        slot="descriptionExtra"
+                        class="flex md:flex-row flex-col flex-wrap justify-center items-center gap-2 mt-4"
+                    >
+                        <span class="mr-1 w-full text-muted-foreground">
+                            Na výběr máte několik typů <strong>lamel:</strong>
+                        </span>
+                        <span
+                            class="md:hidden mt-0.5 text-muted-foreground text-xs"
+                        >
+                            <strong>Tip:</strong> klikni na bublinu pro vysvětlivku
+                        </span>
+
+                        <!-- C60/80 -->
+                        <div class="group inline-block relative">
+                            <button
+                                type="button"
+                                class="bg-background hover:bg-foreground focus:bg-foreground px-2 py-0.5 border border-foreground rounded-md outline-none font-bold text-foreground hover:text-white focus:text-white text-sm transition-colors cursor-help"
+                            >
+                                C60/80
+                            </button>
+                            <div
+                                class="invisible group-focus-within:visible group-hover:visible bottom-full left-1/2 z-50 absolute bg-foreground opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 shadow-lg mb-2 p-3 rounded-lg w-64 text-background text-sm transition-all -translate-x-1/2 duration-200 pointer-events-none"
+                            >
+                                <p>
+                                    <strong>Lamela 60/80 (tvar C):</strong> Klasický
+                                    zaoblený tvar. Umožňuje naklápění na obě strany.
+                                    Nemá těsnící gumu.
+                                </p>
+                                <div
+                                    class="top-full left-1/2 absolute border-8 border-transparent border-t-foreground -translate-x-1/2"
+                                >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- S65/90 -->
+                        <div class="group inline-block relative">
+                            <button
+                                type="button"
+                                class="bg-background hover:bg-foreground focus:bg-foreground px-2 py-0.5 border border-foreground rounded-md outline-none font-bold text-foreground hover:text-white focus:text-white text-sm transition-colors cursor-help"
+                            >
+                                S65/90
+                            </button>
+                            <div
+                                class="invisible group-focus-within:visible group-hover:visible bottom-full left-1/2 z-50 absolute bg-foreground opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 shadow-lg mb-2 p-3 rounded-lg w-64 text-background text-sm transition-all -translate-x-1/2 duration-200 pointer-events-none"
+                            >
+                                <p>
+                                    <strong>Lamela 65/90 (tvar S):</strong> Designová
+                                    'vlnka'. Kombinuje pevnost 'Zetka' s oblým elegantním
+                                    vzhledem.
+                                </p>
+                                <div
+                                    class="top-full left-1/2 absolute border-8 border-transparent border-t-foreground -translate-x-1/2"
+                                >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Z70/90 -->
+                        <div class="group inline-block relative">
+                            <button
+                                type="button"
+                                class="bg-background hover:bg-foreground focus:bg-foreground px-2 py-0.5 border border-foreground rounded-md outline-none font-bold text-foreground hover:text-white focus:text-white text-sm transition-colors cursor-help"
+                            >
+                                Z70/90
+                            </button>
+                            <div
+                                class="invisible group-focus-within:visible group-hover:visible bottom-full left-1/2 z-50 absolute bg-foreground opacity-0 group-focus-within:opacity-100 group-hover:opacity-100 shadow-lg mb-2 p-3 rounded-lg w-64 text-background text-sm transition-all -translate-x-1/2 duration-200 pointer-events-none"
+                            >
+                                <p>
+                                    <strong>Lamela 70/90 (tvar Z):</strong> Špičková
+                                    varianta. Díky tvaru Z a těsnění vytvoří dokonalou
+                                    tmu.
+                                </p>
+                                <div
+                                    class="top-full left-1/2 absolute border-8 border-transparent border-t-foreground -translate-x-1/2"
+                                >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Card>
+
+                <!-- 3) Screenové rolety -->
+                <Card
+                    title="Screenové rolety"
+                    image1={imgScreenPriznane}
+                    image2={imgScreenPodomitkove}
+                    stats={statsScreeny}
+                    subtitle2="2 varianty provedení"
+                    variant1="Přiznané"
+                    variant2="Podomítkové"
+                >
+                    <p>
+                        Screenové rolety <strong>účinně stíní</strong>, aniž by
+                        bránily výhledu. <strong>Zabraňují přehřívání</strong> interiéru
+                        a blokují škodlivé <strong>UV paprsky</strong> – ideální pro
+                        moderní domy a kanceláře.
+                    </p>
+                </Card>
+
+                <!-- 4) Veranda -->
+                <Card
+                    title="Veranda"
+                    image1={imgVerandaKulaty}
+                    image2={imgVerandaHranaty}
+                    stats={statsVeranda}
+                    subtitle2="2 varianty rolet"
+                    variant1="Kulatý box"
+                    variant2="Hranatý box"
+                >
+                    <p>
+                        Ideální pro zastínění verand, zimních zahrad i teras.
+                        Roleta je dostupná ve <strong
+                            >variantách HRV52 a HRV80-ZIP</strong
+                        > a <strong>pokryje plochu až 25 m&sup2;</strong>.
+                        Nabízí<strong> jednoduché ovládání</strong> s možností napojení
+                        na chytrou domácnost a široký výběr barev pro sladění s exteriérem.
+                    </p>
+                </Card>
+            </div>
+        </div>
+    </section>
+
+    <Contact />
+</Layout>

@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DetailProduktu from "../../components/DetailProduktu.astro";
+
+import produktImg from "../../assets/img/rolovaci_sit.jpeg";
+---
+
+<Layout
+    title="Sítě na střešní okna | Travas Stínění"
+    description="Speciální sítě navržené pro střešní okna - pevné i posuvné varianty pro maximální ochranu před hmyzem."
+>
+    <DetailProduktu
+        title="Sítě na střešní okna"
+        description="Elegantní síťová varianta, která se při nevyužívání stáhne do kazety - téměř neviditelná."
+        image={produktImg}
+        imageAlt="Sítě na střešní okna"
+        productDescription="Sítě na střešní okna"
+        features={[
+            "Při zatažení mizí z dohledu a nezabírají prostor",
+            "Umožňují neomezený výhled a přirozené světlo",
+            "Průchod vzduchu a přirozené větrání bez hmyzích obtíží",
+            "Krytí síťoviny zvyšuje životnost",
+        ]}
+    />
+</Layout>

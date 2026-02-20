@@ -1,0 +1,74 @@
+---
+import { ContactForm } from "../components/contact-form";
+import { contactInfo } from "../data/contact";
+---
+
+<section
+    id="kontakt"
+    class="bg-gray-50 py-16 md:py-24"
+    aria-label="Kontaktní formulář"
+>
+    <div class="mx-auto px-4 cs-container">
+        <div class="flex lg:flex-row flex-col gap-12">
+            <div class="lg:w-1/2">
+                <p
+                    class="font-bold text-muted-foreground text-base md:text-left text-center uppercase tracking-widest"
+                >
+                    kontakt
+                </p>
+                <h2
+                    class="font-bold text-3xl md:text-5xl md:text-left text-center"
+                >
+                    Kontaktujte mě
+                </h2>
+                <p
+                    class="mt-4 text-muted-foreground text-xl md:text-left text-center"
+                >
+                    Máte dotaz ohledně mých služeb? Rád vám poradím...
+                </p>
+
+                <div class="space-y-6 mt-8">
+                    {
+                        contactInfo.map((item) => (
+                            <div class="flex items-start">
+                                <div class="flex justify-center items-center bg-foreground rounded-full size-10 text-background shrink-0">
+                                    <item.icon />
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="font-bold text-lg">
+                                        {item.title}
+                                    </h3>
+                                    <div class="mt-1 text-muted-foreground">
+                                        {item.href ? (
+                                            <a
+                                                href={item.href}
+                                                class="hover:underline"
+                                            >
+                                                {item.text}
+                                            </a>
+                                        ) : (
+                                            <div>
+                                                {item.contentLines?.join(" ")}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div class="lg:w-1/2">
+                <div class="bg-background shadow-lg p-6 md:p-8 rounded-xl">
+                    <h3
+                        class="mb-4 font-bold text-3xl md:text-left text-center"
+                    >
+                        Napište mi zprávu
+                    </h3>
+                    <ContactForm client:load />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

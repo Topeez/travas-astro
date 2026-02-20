@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DetailProduktu from "../../components/DetailProduktu.astro";
+
+import produktImg from "../../assets/img/plisa_sit_2.jpg";
+---
+
+<Layout
+    title="Plisé sítě | Travas Stínění"
+    description="Stylové skládací sítě, které skládáním připomínají harmoniku nebo plisé rolety."
+>
+    <DetailProduktu
+        title="Plisé sítě"
+        description="Stylové skládací sítě, které skládáním připomínají harmoniku nebo plisé rolety."
+        image={produktImg}
+        imageAlt="Pevné okenní sítě"
+        productDescription="Odolná síť instalovaná na rám okna nebo dveří - ideální pro trvalou ochranu před hmyzem."
+        features={[
+            "Kompaktní, elegantní a minimální zasahování do prostoru",
+            "Snadné ovládání bez složitých mechanismů",
+            "Skvělá ventilace a světelný průnik, přitom spolehlivá ochrana",
+            "Údržba: stačí občasné vysátí nebo omytí vodou",
+        ]}
+    />
+</Layout>

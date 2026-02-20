@@ -1,0 +1,135 @@
+---
+import { ChevronsDown, ArrowRight } from "@lucide/astro";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+    title: string;
+    subtitle?: string;
+    backgroundImage: ImageMetadata;
+    placeholderColor?: string;
+    primaryCta?: {
+        label: string;
+        href: string;
+    };
+    secondaryCta?: {
+        label: string;
+        href: string;
+        icon?: boolean;
+    };
+}
+
+const {
+    title,
+    subtitle,
+    backgroundImage,
+    placeholderColor = "#1f2937",
+    primaryCta,
+    secondaryCta,
+} = Astro.props;
+
+// Vygenerujeme WebP pozadí na serveru
+const optimizedBackground = await getImage({
+    src: backgroundImage,
+    format: "webp",
+    width: 1920,
+    quality: 85,
+});
+
+// Použijeme rovnou absolutní styl, který se propíše z Astro do HTML
+const bgStyle = `background-image: url('${optimizedBackground.src}');`;
+---
+
+<section class="z-10 relative flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center w-full min-h-screen overflow-hidden text-background hero-section">
+    
+    {/* Placeholder (základní barva, ukáže se než se stáhne fotka) */}
+    <div 
+        class="z-0 absolute inset-0 bg-cover bg-center"
+        style={`background-color: ${placeholderColor};`}
+    >
+        <div class="absolute inset-0 bg-linear-to-br from-transparent via-background/5 to-transparent animate-pulse"></div>
+    </div>
+
+    {/* Samotná animovaná vrstva pozadí */}
+    <div 
+        class="z-0 absolute inset-0 hero-bg-layer bg-cover bg-no-repeat bg-center animate-bg-zoom-out-mobile lg:animate-bg-zoom-out"
+        style={bgStyle}
+    ></div>
+
+    {/* Tmavý Overlay */}
+    <div class="z-0 absolute inset-0 bg-black/55 pointer-events-none"></div>
+
+    {/* Content - Always visible */}
+    <div class="z-10 relative grid grid-cols-12 w-full pointer-events-auto cs-container">
+        <div class="space-y-12 col-span-12 py-12 text-center">
+            <h1 class="font-bold text-4xl md:text-5xl lg:text-7xl leading-snug animate-fade-in">
+                {title}
+            </h1>
+            {subtitle && (
+                <h2 class="font-bold text-xl md:text-2xl">
+                    {subtitle}
+                </h2>
+            )}
+            
+            {(primaryCta || secondaryCta) && (
+                <div class="flex sm:flex-row flex-col justify-center items-center gap-4">
+                    {primaryCta && (
+                        <a
+                            href={primaryCta.href}
+                            aria-label={primaryCta.label}
+                            class="bg-background hover:bg-foreground px-6 md:px-8 py-3 rounded-4xl font-bold text-popover-foreground hover:text-background text-lg md:text-xl transition-colors cursor-pointer"
+                        >
+                            {primaryCta.label}
+                        </a>
+                    )}
+                    {secondaryCta && (
+                        <a
+                            href={secondaryCta.href}
+                            aria-label={secondaryCta.label}
+                            class="group flex items-center gap-2 bg-foreground hover:bg-background px-6 md:px-8 py-3 rounded-4xl font-bold hover:text-foreground text-lg md:text-xl transition-colors cursor-pointer"
+                        >
+                            {secondaryCta.label}
+                            {secondaryCta.icon && (
+                                <ArrowRight class="w-5 h-5 transition-all group-hover:translate-x-1" />
+                            )}
+                        </a>
+                    )}
+                </div>
+            )}
+        </div>
+    </div>
+
+    {/* Scroll Down Button */}
+    <button
+        aria-label="Scroll down to the next section"
+        class="bottom-8 left-1/2 z-20 absolute flex justify-center items-center bg-background/20 hover:bg-background/30 backdrop-blur-sm border border-background/30 hover:border-background/50 rounded-full size-12 aspect-square text-background transition-all -translate-x-1/2 animate-bounce scroll-down-btn cursor-pointer transform"
+    >
+        <ChevronsDown class="w-6 h-6" />
+    </button>
+</section>
+
+<script>
+    // Scroll logika zůstává zachována
+    document.addEventListener("astro:page-load", () => {
+        const heroSections = document.querySelectorAll(".hero-section");
+
+        heroSections.forEach((section) => {
+            const scrollBtn = section.querySelector(".scroll-down-btn");
+
+            if (scrollBtn) {
+                scrollBtn.addEventListener("click", () => {
+                    const nextSection = section.nextElementSibling;
+                    
+                    if (nextSection && nextSection.tagName === 'SECTION') {
+                        nextSection.scrollIntoView({ behavior: "smooth" });
+                    } else {
+                        window.scrollTo({
+                            top: window.innerHeight,
+                            behavior: "smooth",
+                        });
+                    }
+                });
+            }
+        });
+    });
+</script>

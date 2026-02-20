@@ -1,0 +1,115 @@
+---
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import Contact from "../../components/Contact.astro";
+import HeroSection from "../../components/HeroSection.astro";
+import FeaturesSection from "../../components/Features.astro";
+import { Sun, Sparkles, ShieldCheck, Expand } from "@lucide/astro";
+import { getImage, Image } from "astro:assets";
+import Layout from "../../layouts/Layout.astro";
+import heroImg from "../../assets/img/markyza_2.jpg";
+import markyza3Img from "../../assets/img/markyza3.jpg";
+
+const optimizedMarkyza3Img = await getImage({
+    src: markyza3Img,
+    format: "webp",
+    width: 1920,
+});
+
+const breadcrumbItems = [
+    { title: "Domů", href: "/", ariaLabel: "Domů" },
+    {
+        title: "Stínicí technika",
+        href: "/stinici-technika",
+        ariaLabel: "Stínicí technika",
+    },
+    {
+        title: "Venkovní stínění",
+        href: "/stinici-technika/venkovni-stineni",
+        ariaLabel: "Venkovní stínění",
+    },
+    { title: "Markýzy", ariaLabel: "Markýzy" },
+];
+
+const awningServiceFeatures = [
+    {
+        icon: Sun,
+        title: "Ochrana před sluncem",
+        description:
+            "Zabraňují přímému slunečnímu záření na terasách a balkonech",
+    },
+    {
+        icon: Sparkles,
+        title: "Estetický prvek",
+        description: "Zkrášlují vzhled domu nebo balkonu",
+    },
+    {
+        icon: ShieldCheck,
+        title: "Dlouhá životnost",
+        description: "Použité materiály zaručují odolnost a trvanlivost",
+    },
+    {
+        icon: Expand,
+        title: "Možnost velkých rozměrů",
+        description: "Zakryjí i velmi prostorné plochy",
+    },
+];
+---
+
+<Layout
+    title="Markýzy | Travas Stínění"
+    description="Praktické a stylové markýzy pro ochranu před sluncem na terasách a balkonech."
+>
+    <HeroSection
+        title="Stín, kde ho potřebujete - markýzy pro vaši terasu i balkon"
+        backgroundImage={heroImg}
+        placeholderColor="#5ca437"
+        aria-label="Hero Section"
+    />
+
+    <section class="space-y-20 py-20 cs-container" aria-label="Main Content">
+        <Breadcrumb items={breadcrumbItems} aria-label="Breadcrumb" />
+
+        <FeaturesSection
+            subtitle="Vyhánějí vás vedra a slunce z terasy? Chcete jednoduché řešení pro svůj balkon? Pak jsou pro vás markýzy ideálním řešením."
+            features={awningServiceFeatures}
+            aria-label="Features Section"
+        >
+            <h2
+                slot="title"
+                class="font-bold text-3xl md:text-5xl text-center"
+                aria-label="Section Title"
+            >
+                <span class="text-foreground">Markýzy</span> &#45; praktické a stylové
+                řešení pro váš venkovní prostor
+            </h2>
+        </FeaturesSection>
+
+        <div
+            class="relative mx-auto rounded-xl w-full md:w-1/2 h-64 md:h-112.5 overflow-hidden"
+            aria-label="Image"
+        >
+            <Image
+                src={optimizedMarkyza3Img.src}
+                width={1200}
+                height={800}
+                alt="Kazetová markýza"
+                class="w-full h-full object-cover"
+            />
+
+            <div
+                class="absolute inset-0 m-4 border-2 border-white/10 rounded-2xl pointer-events-none"
+            >
+            </div>
+
+            <div
+                class="absolute inset-0 flex justify-center items-end bg-linear-to-t from-black/50 via-20% via-black/50 to-transparent p-5"
+            >
+                <h4 class="font-bold text-background text-2xl text-center">
+                    Kazetová markýza
+                </h4>
+            </div>
+        </div>
+    </section>
+
+    <Contact aria-label="Contact Section" />
+</Layout>

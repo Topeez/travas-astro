@@ -1,0 +1,82 @@
+---
+import { Image } from "astro:assets";
+import montaz from "../assets/img/montaz.png";
+import { benefits } from "../data/benefits";
+---
+
+<section
+    id="omne"
+    class="bg-gray-50 py-16 md:py-24"
+    aria-label="Benefits Section"
+>
+    <div class="cs-container">
+        <div class="flex lg:flex-row flex-col items-center gap-12">
+            <div class="w-full lg:w-1/2">
+                <p
+                    class="font-bold text-muted-foreground text-base md:text-left text-center uppercase tracking-widest"
+                >
+                    o mně
+                </p>
+                <h2
+                    class="font-bold text-3xl md:text-5xl md:text-left text-center"
+                    aria-label="Why Choose Me"
+                >
+                    Proč si vybrat právě mě
+                </h2>
+                <p
+                    class="mt-4 max-w-xl text-muted-foreground md:text-xl md:text-left text-center"
+                >
+                    S více než
+                    <span class="font-bold text-foreground">
+                        {" "}
+                        8 lety
+                    </span>{" "}
+                    zkušeností v oboru vám nabízím řešení, které splní vaše očekávání
+                    a přinese do vašeho domova pohodlí a bezpečí.
+                </p>
+
+                <div class="space-y-8 mt-10">
+                    {
+                        benefits.map((benefit) => (
+                            <div class="group flex items-start cursor-default">
+                                <div class="flex justify-center items-center bg-primary/10 group-hover:bg-foreground rounded-full w-14 h-14 transition-colors group-hover:animate-tilt shrink-0">
+                                    <benefit.icon
+                                        size={24}
+                                        className="text-foreground group-hover:text-background transition-colors"
+                                    />
+                                </div>
+                                <div class="ml-6">
+                                    <h3 class="font-bold group-hover:text-foreground text-xl transition-colors">
+                                        {benefit.title}
+                                    </h3>
+                                    <p class="mt-2 text-muted-foreground">
+                                        {benefit.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div class="flex justify-center w-full lg:w-1/2">
+                <div
+                    class="relative shadow-lg rounded-xl w-full h-96 md:h-125 overflow-hidden"
+                    aria-label="Installation Image"
+                >
+                    <!-- 
+                       Astro Image nemá prop 'fill' jako Next.js.
+                       Musíme to nastylovat CSSkem, aby se roztáhl.
+                       'width' a 'height' tady říkají, v jaké kvalitě/rozlišení se má obrázek vygenerovat.
+                    -->
+                    <Image
+                        src={montaz}
+                        alt="Montáž stínicí techniky"
+                        width={800}
+                        class="absolute inset-0 w-full h-full object-cover"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

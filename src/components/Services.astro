@@ -1,0 +1,45 @@
+---
+import { services } from "../data/services";
+import BentoGrid from "./BentoGrid.astro";
+
+import { Button } from "./ui/button";
+import { ContactButton } from "./contact-button";
+---
+
+<section id="sluzby" class="bg-background py-24">
+    <div class="mx-auto px-4 cs-container">
+        <div
+            class="flex md:flex-row flex-col justify-between items-start md:items-end gap-6 mb-12"
+        >
+            <div class="max-w-2xl md:text-left text-center">
+                <p
+                    class="mb-2 font-bold text-muted-foreground text-base uppercase tracking-widest"
+                >
+                    služby
+                </p>
+                <h2 class="mb-4 font-bold text-3xl md:text-5xl">
+                    Co pro vás mohu udělat
+                </h2>
+                <p class="text-muted-foreground text-lg">
+                    Kompletní řešení od prvotního zaměření přes odbornou
+                    instalaci až po spolehlivý servis.
+                </p>
+            </div>
+
+            <div class="hidden md:block">
+                <ContactButton client:load>Nezávazná poptávka</ContactButton>
+            </div>
+        </div>
+
+        <BentoGrid items={services} />
+    </div>
+
+    <div class="md:hidden mt-8 text-center">
+        <Button
+            className="bg-foreground hover:bg-background mx-12 mt-4 py-3 border border-foreground rounded-lg font-bold text-background hover:text-foreground text-lg transition cursor-pointer"
+            asChild
+        >
+            <a href="/kontakt">Nezávazná poptávka</a>
+        </Button>
+    </div>
+</section>

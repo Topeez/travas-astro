@@ -1,0 +1,209 @@
+---
+import { Image } from "astro:assets";
+import logoImg from "../assets/logo.png";
+import { services } from "../data/services";
+import { contactInfo } from "../data/contact";
+
+// Import log jako obrázků
+import climaxLogo from "../assets/img/climax-logo.png";
+import isotraLogo from "../assets/img/isotra-logo.png";
+import jimiLogo from "../assets/img/jimi-tore-logo.png";
+import tridoLogo from "../assets/img/trido-logo.png";
+
+// Import univerzální komponenty pro logo
+import LogoLink from "./logo-cloud/Logos.astro";
+
+const navLinks = [
+    { label: "Služby", href: "/#sluzby" }, // Všimni si změny: /#kotva funguje všude!
+    { label: "O mně", href: "/#omne" },
+    { label: "Reference", href: "/#recenze" },
+    { label: "Kontakt", href: "/#kontakt" },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-foreground py-16 text-background">
+    <div class="cs-container">
+        <!-- Sekce Loga Partnerů -->
+        <div class="flex flex-col items-center mb-16">
+            <p
+                class="mb-8 font-bold text-white/40 text-xs text-center uppercase tracking-[0.2em]"
+            >
+                Autorizovaná montáž ověřených značek
+            </p>
+
+            <div
+                class="flex flex-wrap justify-center items-center gap-10 md:gap-20"
+            >
+                <div class="flex justify-center w-28 md:w-36">
+                    <LogoLink
+                        href="https://www.climax.cz/"
+                        src={climaxLogo}
+                        alt="Climax Logo"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                    />
+                </div>
+                <div class="flex justify-center w-28 md:w-36">
+                    <LogoLink
+                        href="https://www.isotra.cz/"
+                        src={isotraLogo}
+                        alt="Isotra Logo"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                    />
+                </div>
+                <div class="flex justify-center w-28 md:w-36">
+                    <LogoLink
+                        href="https://www.jimi-tore.cz/"
+                        src={jimiLogo}
+                        alt="Jimi Tore Logo"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                    />
+                </div>
+                <div class="flex justify-center w-28 md:w-36">
+                    <LogoLink
+                        href="https://www.trido.cz/"
+                        src={tridoLogo}
+                        alt="Trido Logo"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <!-- Oddělovač (HTML verze je lehčí než React component) -->
+        <hr class="mb-12 border-white/10" />
+
+        <div class="gap-10 grid grid-cols-1 md:grid-cols-4">
+            <!-- Sloupec 1: Logo a info -->
+            <div
+                class="flex flex-col items-center md:items-start md:text-left text-center"
+            >
+                <a
+                    href="/"
+                    draggable="false"
+                    aria-label="Home"
+                    class="block mb-6"
+                >
+                    <Image
+                        src={logoImg}
+                        width={160}
+                        alt="Travas Stínění Logo"
+                        class="w-40"
+                        draggable="false"
+                    />
+                </a>
+                <p class="max-w-xs text-white/70 text-sm leading-relaxed">
+                    Profesionální montáže stínicí techniky s více než 8 letou
+                    praxí. Zaměřuji se na individuální řešení a precizní
+                    provedení.
+                </p>
+            </div>
+
+            <!-- Sloupec 2: Služby -->
+            <div class="md:text-left text-center">
+                <h4 class="mb-6 font-bold text-lg tracking-wide">Služby</h4>
+                <ul class="space-y-3 text-white/70 text-sm">
+                    {
+                        services.map((service) => (
+                            <li>
+                                <a
+                                    href={service.link}
+                                    class="block py-1 hover:text-white transition-colors"
+                                >
+                                    {service.title}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Sloupec 3: Rychlé odkazy -->
+            <div class="md:text-left text-center">
+                <h4 class="mb-6 font-bold text-lg tracking-wide">
+                    Rychlé odkazy
+                </h4>
+                <ul class="space-y-3 text-white/70 text-sm">
+                    {
+                        navLinks.map((link) => (
+                            <li>
+                                {/* 
+                                Tady je to kouzlo: 
+                                Odkaz typu "/#kontakt" funguje nativně v prohlížeči.
+                                Pokud jsi na homepage, prohlížeč jen odscroluje.
+                                Pokud jsi jinde, prohlížeč přejde na homepage a odscroluje.
+                                Není potřeba JS logic! 
+                            */}
+                                <a
+                                    href={link.href}
+                                    class="block py-1 w-full md:w-auto hover:text-white text-left transition-colors"
+                                >
+                                    {link.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+
+            <!-- Sloupec 4: Kontakt -->
+            <div class="md:text-left text-center">
+                <h4 class="mb-6 font-bold text-lg tracking-wide">Kontakt</h4>
+                <ul class="space-y-4 text-white/70 text-sm">
+                    {
+                        contactInfo.map((item) => (
+                            <li class="flex md:flex-row flex-col items-center md:items-start gap-3">
+                                <span class="mt-0.5 text-white shrink-0">
+                                    <item.icon size={20} />
+                                </span>
+
+                                <div class="leading-tight">
+                                    {item.href ? (
+                                        <a
+                                            href={item.href}
+                                            target={item.target || "_self"}
+                                            class="font-bold hover:underline"
+                                        >
+                                            {item.text}
+                                        </a>
+                                    ) : (
+                                        <div class="font-bold">
+                                            {item.contentLines?.[0]}
+                                            <span class="block font-normal">
+                                                {item.contentLines?.[1]}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <hr class="my-10 border-white/10" />
+
+        <!-- Copyright -->
+        <div
+            class="flex flex-col justify-between items-center gap-4 text-white/40 text-xs"
+        >
+            <div class="font-bold text-muted text-center">
+                &copy; {currentYear} Travas Stínění. Všechna práva vyhrazena.
+            </div>
+            <div class="mt-5 text-muted text-xs text-center">
+                Webovou stránku vytvořil
+                <a
+                    href="https://www.topeeez.cz"
+                    class="font-bold animate-shine effect-shine"
+                    target="_blank"
+                    draggable="false"
+                    aria-label="Topeeez portfolio"
+                >
+                    <span> Topeeez</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DetailProduktu from "../../components/DetailProduktu.astro";
+
+import produktImg from "../../assets/img/pevna_sit_okno.jpeg";
+---
+
+<Layout
+    title="Pevné okenní sítě | Travas Stínění"
+    description="Jednoduché a účinné řešení ochrany před hmyzem pro všechna typická okna. Bez vrtání do rámu."
+>
+    <DetailProduktu
+        title="Pevné okenní sítě"
+        description="Jednoduché a účinné řešení ochrany před hmyzem pro všechna typická okna. Bez vrtání do rámu a s možností demontáže během zimy."
+        image={produktImg}
+        imageAlt="Pevné okenní sítě"
+        productDescription="Odolná síť instalovaná na rám okna nebo dveří - ideální pro trvalou ochranu před hmyzem."
+        features={[
+            "Nízká nutnost údržby, dlouhá životnost - bezúdržbový provoz",
+            "Vysoká odolnost vůči počasí i UV záření",
+            "Nezhoršují viditelnost ani ventilaci",
+        ]}
+    />
+</Layout>

@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Contact from "../components/Contact.astro";
+import HeroSection from "../components/HeroSection.astro";
+import BentoGrid from "../components/BentoGrid.astro";
+import { nets } from "../data/nets";
+import heroImg from "../assets/img/hmyz_sit.jpg";
+
+const breadcrumbItems = [
+    { title: "Domů", href: "/" },
+    { title: "Sítě proti hmyzu" },
+];
+---
+
+<Layout
+    title="Sítě proti hmyzu | Travas Stínění"
+    description="Sítě proti hmyzu pro okna a dveře – větrejte bez obav ve dne i v noci."
+>
+    <HeroSection
+        title="Větrejte bez obav - sítě proti hmyzu vás ochrání ve dne i v noci"
+        backgroundImage={heroImg}
+        placeholderColor="#5ca437"
+        aria-label="hero section"
+    />
+
+    <section class="bg-background py-16 md:py-24">
+        <div class="mx-auto px-4 cs-container">
+            <Breadcrumb
+                items={breadcrumbItems}
+                aria-label="breadcrumb navigation"
+                class="mb-12"
+            />
+
+            <div class="mb-12 md:text-left text-center">
+                <h2 class="mb-4 font-bold text-3xl md:text-4xl">
+                    Typy <span class="text-foreground">sítí proti hmyzu</span>
+                </h2>
+                <p class="max-w-2xl text-muted-foreground text-lg">
+                    Vyberte si to pravé řešení pro vaše okna a dveře. Nabízím
+                    širokou škálu typů od pevných až po plisované sítě.
+                </p>
+            </div>
+
+            <BentoGrid items={nets} />
+        </div>
+    </section>
+
+    <Contact />
+</Layout>

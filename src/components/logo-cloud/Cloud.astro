@@ -1,0 +1,37 @@
+---
+import LogoLink from "./Logos.astro";
+
+import climaxLogo from "../../assets/img/climax-logo.png";
+import isotraLogo from "../../assets/img/isotra-logo.png";
+import jimiLogo from "../../assets/img/jimi-tore-logo.png";
+import tridoLogo from "../../assets/img/trido-logo.png";
+---
+
+<div class="flex flex-col justify-center items-center my-28 cs-container">
+    <p class="font-bold text-4xl text-center">
+        Odebírám produkty jen od známých českých výrobců.
+    </p>
+
+    <div class="flex flex-wrap justify-center items-center gap-32 mt-14">
+        <LogoLink
+            href="https://www.climax.cz/"
+            src={climaxLogo}
+            alt="Climax Logo"
+        />
+        <LogoLink
+            href="https://www.isotra.cz/"
+            src={isotraLogo}
+            alt="Isotra Logo"
+        />
+        <LogoLink
+            href="https://www.jimi-tore.cz/"
+            src={jimiLogo}
+            alt="Jimi Tore Logo"
+        />
+        <LogoLink
+            href="https://www.trido.cz/"
+            src={tridoLogo}
+            alt="Trido Logo"
+        />
+    </div>
+</div>

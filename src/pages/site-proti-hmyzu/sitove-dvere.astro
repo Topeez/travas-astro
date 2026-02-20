@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import DetailProduktu from "../../components/DetailProduktu.astro";
+
+import produktImg from "../../assets/img/sitove_dvere.jpeg";
+---
+
+<Layout
+    title="Síťové dveře | Travas Stínění"
+    description="Praktické a elegantní řešení pro ochranu před hmyzem na vašich dveřích. Snadná instalace a údržba."
+>
+    <DetailProduktu
+        title="Síťové dveře"
+        description="Samostatné dveřní panely se sítí - buď pevné nebo zasouvací."
+        image={produktImg}
+        imageAlt="Síťové dveře"
+        productDescription="Síťové dveře proti hmyzu jsou ideálním řešením pro vstupy na terasu, balkon nebo do zahrady. Instalují se přímo do dveřního rámu a díky pantům se otevírají jako klasické dveře. Jsou pevné, odolné a vhodné pro časté používání."
+        features={[
+            "Vstupní vrstva proti hmyzu při otevřeném dveřním průchodu",
+            "Jednoduché použití, ergonomická konstrukce",
+            "Neomezují světlo ani výhled",
+            "Pomáhají větrat bez kompromisů",
+        ]}
+    />
+</Layout>

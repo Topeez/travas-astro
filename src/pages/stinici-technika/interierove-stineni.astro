@@ -1,0 +1,161 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getImage, Image } from "astro:assets";
+
+import HeroSection from "../../components/HeroSection.astro";
+import Contact from "../../components/Contact.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+
+import {
+    Card,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "../../components/ui/card";
+
+// Data
+import {
+    interiorShadingOptions,
+    interiorShadingPros,
+} from "../../data/interior-shading";
+
+import heroImg from "../../assets/img/IMG_7601.jpeg";
+
+
+const breadcrumbItems = [
+    { title: "Domů", href: "/" },
+    { title: "Stínicí technika", href: "/stinici-technika" },
+    { title: "Interiérové stínění" },
+];
+---
+
+<Layout
+    title="Interiérové stínění | Travas Stínění"
+    description="Stylové a funkční interiérové stínění na míru vašemu domovu."
+>
+    <HeroSection
+        client:load
+        title="Styl a soukromí – interiérové stínění, které ladí s vaším domovem"
+        backgroundImage={heroImg}
+        placeholderColor="#5ca437"
+    />
+
+    <section class="py-16 md:py-24">
+        <div class="mx-auto px-4 cs-container">
+            <Breadcrumb items={breadcrumbItems} class="mb-12" />
+
+            <div
+                class="items-center gap-12 md:gap-24 grid grid-cols-1 md:grid-cols-2 mb-24"
+            >
+                <div class="flex flex-col gap-6">
+                    <h2
+                        class="font-bold text-foreground text-3xl md:text-5xl leading-tight"
+                    >
+                        Interiérové stínění <span class="text-black"
+                            >spojuje</span
+                        > funkčnost{" "}
+                        <span class="text-black">a</span> estetiku
+                    </h2>
+                    <p class="text-muted-foreground text-lg leading-relaxed">
+                        Správně zvolené stínění dokáže proměnit atmosféru celé
+                        místnosti. Nejde jen o ochranu před sluncem, ale o
+                        doplněk, který podtrhne styl vašeho bydlení. Nabízím
+                        kompletní sortiment od klasických žaluzií až po moderní
+                        japonské stěny.
+                    </p>
+                </div>
+
+                {/* Pravý sloupec: výhody */}
+                <div
+                    class="bg-muted/30 p-8 md:p-10 border border-border/50 rounded-3xl"
+                >
+                    <h3
+                        class="flex items-center gap-2 mb-6 font-bold text-xl md:text-2xl"
+                    >
+                        <span class="text-foreground">✦</span> Proč zvolit vnitřní
+                        stínění?
+                    </h3>
+                    <ul class="space-y-4">
+                        {
+                            interiorShadingPros.map((pro) => (
+                                <li class="flex items-start gap-4">
+                                    <div class="flex justify-center items-center bg-foreground mt-1 p-1 rounded-full w-6 h-6 shrink-0">
+                                        <svg
+                                            class="size-3.5 text-white"
+                                            stroke-width="3"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                        >
+                                            <polyline points="20 6 9 17 4 12" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium text-muted-foreground text-lg">
+                                        {pro}
+                                    </span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            {/* Typy stínění */}
+            <div class="mb-12 md:text-left text-center">
+                <h3 class="mb-4 font-bold text-3xl md:text-4xl">
+                    Typy <span class="text-foreground"
+                        >interiérového stínění</span
+                    >
+                </h3>
+                <p class="text-muted-foreground">
+                    Vyberte si řešení přesně pro vaše okna
+                </p>
+            </div>
+
+            <div class="gap-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                {
+                    interiorShadingOptions.map((option) => (
+                        <Card
+                            className="group relative hover:shadow-lg p-0 border-border/50 hover:border-foreground/50 overflow-hidden transition-all duration-300"
+                            client:visible
+                        >
+                            <div class="relative h-70 overflow-hidden">
+                                <Image
+                                    width={1920}
+                                    height={1080}
+                                    src={option.img}
+                                    alt={option.title}
+                                    draggable={false}
+                                    class="size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div class="top-4 right-4 absolute bg-black/50 backdrop-blur-md p-2.5 rounded-full text-white">
+                                    <option.icon
+                                        size={30}
+                                        className="size-5 text-background"
+                                    />
+                                </div>
+                            </div>
+                            <CardHeader className="p-6">
+                                <CardTitle className="mb-2 text-black group-hover:text-foreground text-xl md:text-2xl transition-colors">
+                                    {option.title}
+                                </CardTitle>
+                                <CardDescription className="text-base line-clamp-3">
+                                    {option.description}
+                                </CardDescription>
+                            </CardHeader>
+                        </Card>
+                    ))
+                }
+            </div>
+        </div>
+
+        <h3 class="mt-20 mb-12 font-bold text-3xl md:text-5xl text-center">
+            Tak co? Máte vybráno?
+        </h3>
+        <h4 class="font-bold text-foreground text-2xl md:text-4xl text-center">
+            Neváhejte se mi ozvat!
+        </h4>
+    </section>
+
+    <Contact />
+</Layout>

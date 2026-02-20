@@ -1,11 +1,40 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import HeroSection from "../components/HeroSection.astro";
+import { SpacerBig } from "../components/spacer-big";
+import Services from "../components/Services.astro";
+import Benefits from "../components/Benefits.astro";
+import CTA from "../components/CTA.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Contact from "../components/Contact.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+
+import zaluzieImg from "../assets/img/zaluzie.jpg";
 ---
 
-<Layout>
-	<Welcome />
+<Layout
+    title="Travas Stínění"
+    description="Profesionální montáže stínicí techniky s více než 8 letou praxí. Zaměřuji se na individuální řešení a precizní provedení."
+>
+    <HeroSection
+        title="Kompletní dodávka stínící techniky a garážových vrat"
+        subtitle="Kvalita pro Váš dům i zahradu dle Vašeho gusta."
+        backgroundImage={zaluzieImg}
+        placeholderColor="#5ca437"
+        primaryCta={{
+            label: "Moje služby",
+            href: "#sluzby",
+        }}
+        secondaryCta={{
+            label: "Nezávazné zaměření",
+            href: "/#kontakt",
+            icon: true,
+        }}
+    />
+    <SpacerBig />
+    <Services />
+    <Benefits />
+    <CTA />
+    <Testimonials />
+    <Contact />
 </Layout>

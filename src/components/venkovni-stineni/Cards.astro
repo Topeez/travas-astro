@@ -1,0 +1,136 @@
+---
+import { Image } from "astro:assets";
+
+interface Stats {
+    warmSecurity: { label: string; value: number };
+    blindness: { label: string; value: number };
+    isolation: { label: string; value: number };
+    security: { label: string; value: number };
+    deafness: { label: string; value: number };
+}
+
+interface Props {
+    title: string;
+    image1: ImageMetadata;
+    image2: ImageMetadata;
+    stats: Stats;
+    subtitle2?: string;
+    variant1?: string;
+    variant2?: string;
+}
+
+const { title, image1, image2, stats, subtitle2, variant1, variant2 } =
+    Astro.props;
+---
+
+<div class="flex-col shadow-lg p-6 border rounded-2xl w-full">
+    {
+        subtitle2 && (
+            <>
+                <div
+                    class="flex md:flex-row md:odd:flex-row-reverse flex-col gap-6 md:gap-12 overflow-hidden"
+                    aria-label={`Karta ${title}`}
+                >
+                    {/* Content */}
+                    <div class="flex flex-col justify-between gap-8 w-full h-full">
+                        <div class="flex-1 space-y-4 text-center">
+                            <h3 class="font-bold text-foreground text-2xl md:text-3xl">
+                                {title}
+                            </h3>
+
+                            <div class="text-muted-foreground text-lg">
+                                <slot />
+                            </div>
+
+                            <div class="mt-2">
+                                <slot name="descriptionExtra" />
+                            </div>
+                        </div>
+
+                        <div class="flex md:flex-row flex-col justify-between items-center gap-4 w-full">
+                            {Object.entries(stats).map(([key, stat]) => (
+                                <div class="shadow-sm p-4 border border-muted rounded-lg">
+                                    <div class="flex justify-center font-medium text-muted-foreground text-center">
+                                        <span
+                                            class="text-md md:text-xl"
+                                            aria-label={stat.label}
+                                        >
+                                            {stat.label}
+                                        </span>
+                                    </div>
+                                    <div class="flex gap-1 mt-2">
+                                        {Array.from({ length: 5 }).map(
+                                            (_, i) => (
+                                                <span
+                                                    class={
+                                                        i < stat.value
+                                                            ? "bg-foreground h-4 w-8 rounded-xs"
+                                                            : "h-4 w-8 bg-muted-foreground rounded-xs"
+                                                    }
+                                                    aria-label={
+                                                        i < stat.value
+                                                            ? `${stat.label} - ${stat.value} z 5`
+                                                            : `${stat.label} - 0 z 5`
+                                                    }
+                                                />
+                                            ),
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-12 bg-border w-full h-px shrink-0" role="none" />
+
+                <div class="space-y-6">
+                    <div class="text-center">
+                        <p class="text-muted-foreground text-base uppercase">
+                            dostupné jsou
+                        </p>
+                        <h3 class="font-bold text-foreground text-2xl md:text-3xl">
+                            {subtitle2}
+                        </h3>
+                    </div>
+
+                    <div class="flex md:flex-row flex-col justify-between items-center gap-8">
+                        {/* Image 1 */}
+                        <div class="relative rounded-xl w-full md:w-1/2 h-64 md:h-112.5 overflow-hidden">
+                            <Image
+                                src={image1}
+                                width={1200}
+                                height={800}
+                                alt={title}
+                                class="size-full object-cover"
+                            />
+                            <div class="absolute inset-0 m-4 border-2 border-background/10 rounded-2xl pointer-events-none" />
+                            <div class="absolute inset-0 flex justify-center items-end bg-linear-to-t from-black/50 via-20% via-black/50 to-transparent p-5">
+                                <h4 class="font-bold text-background text-3xl text-center">
+                                    {variant1}
+                                </h4>
+                            </div>
+                        </div>
+
+                        {/* Image 2 */}
+                        <div class="relative rounded-xl w-full md:w-1/2 h-64 md:h-112.5 overflow-hidden">
+                            <Image
+                                src={image2}
+                                width={1200}
+                                height={800}
+                                alt={title}
+                                class="size-full object-cover"
+                            />
+                            <div class="absolute inset-0 m-4 border-2 border-background/10 rounded-2xl pointer-events-none" />
+                            <div class="absolute inset-0 flex justify-center items-end bg-linear-to-t from-black/50 via-20% via-black/50 to-transparent p-5">
+                                <h4 class="font-bold text-background text-3xl text-center">
+                                    {variant2}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+</div>

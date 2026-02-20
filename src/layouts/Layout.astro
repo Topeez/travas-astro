@@ -1,23 +1,27 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import "../styles/global.css";
+import "@fontsource-variable/open-sans";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { Toaster } from "../components/ui/sonner";
+import { BackToTop } from "../components/back-to-top";
+---
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+<!doctype html>
+<html lang="cs">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Travas Stínění</title>
+    </head>
+    <body>
+        <Header  />
+        <slot />
+        <Toaster client:load />
+        <BackToTop client:load />
+        <Footer />
+    </body>
+</html>

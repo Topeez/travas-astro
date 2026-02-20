@@ -1,0 +1,213 @@
+---
+import { Image } from "astro:assets";
+import logoImg from "../assets/logo.png";
+import MobileMenuAstro from "./MobileMenu.astro"; // Zřejmě si ho budeš muset taky přepsat, nebo sem vlož HTML přímo
+import { Button } from "./ui/button"; // Pokud máš Astro/Tailwind button, případně dej jen klasické <button>
+
+// 1. Získáme aktuální cestu hned na serveru
+const pathname = Astro.url.pathname;
+const isHomePage = pathname === "/" || pathname === "";
+const isInsectNetsPage = pathname.startsWith("/site-proti-hmyzu");
+
+// 2. Nastavíme výchozí barvu podle stránky. Na stránkách se sítěmi je header hned zelený.
+const defaultBgClass = isInsectNetsPage ? "bg-foreground" : "backdrop-blur-lg";
+
+const SECTION_IDS = ["home", "sluzby", "omne", "recenze"];
+const LINKS = [
+    { href: "#sluzby", label: "Služby" },
+    { href: "#omne", label: "O mně" },
+    { href: "#recenze", label: "Reference" },
+];
+
+const liClasses =
+    "li-item relative after:w-full after:h-[3px] after:origin-center will-change-transform";
+---
+
+{
+    /* Předáváme proměnné ze serveru do klientského scriptu pomocí data- atributů na hlavičce */
+}
+<header
+    id="main-header"
+    class={`fixed top-0 left-0 right-0 z-999 shadow-sm transition-all duration-500 will-change-transform translate-y-0 ${defaultBgClass}`}
+    data-is-homepage={isHomePage ? "true" : "false"}
+    data-is-insect-nets={isInsectNetsPage ? "true" : "false"}
+    role="banner"
+>
+    <nav
+        class="flex justify-between items-center w-full cs-container"
+        role="navigation"
+        aria-label="Hlavní navigace"
+    >
+        <a href="/" aria-label="Travas Stínění - přejít na hlavní stránku">
+            <Image
+                src={logoImg}
+                alt="Travas Stínění logo"
+                width={400}
+                height={200}
+                class="w-auto max-w-35 h-auto max-h-20 md:max-h-24 object-contain"
+                loading="eager"
+            />
+        </a>
+
+        {/* Desktop Navigation */}
+        <ul
+            class="hidden lg:flex items-center gap-4 font-bold text-background text-xl"
+            role="menubar"
+            aria-label="Navigační menu"
+        >
+            {
+                LINKS.map((link) => {
+                    // Sestavení URL: pokud jsme na homepage a odkaz je kotva, tak jen "#id", jinak "/#id"
+                    const href =
+                        isHomePage && link.href.startsWith("#")
+                            ? link.href
+                            : `/${link.href}`;
+
+                    return (
+                        <li class={`${liClasses} from-left`} role="none">
+                            <a
+                                href={href}
+                                class="block nav-link"
+                                draggable="false"
+                                data-hash={link.href.replace("#", "")}
+                                role="menuitem"
+                                aria-label={`Přejít na sekci ${link.label}`}
+                            >
+                                {link.label}
+                            </a>
+                        </li>
+                    );
+                })
+            }
+            <li class="mb-1.5" role="none">
+                <a
+                    href="/#kontakt"
+                    class="nav-link"
+                    draggable="false"
+                    data-hash="kontakt"
+                    aria-label="Přejít na kontaktní formulář pro nezávaznou konzultaci"
+                >
+                    <button
+                        class="bg-background hover:bg-foreground hover:shadow-xl px-6 py-3 rounded-4xl w-full font-bold text-foreground hover:text-background text-xl transition-all duration-300 cursor-pointer"
+                    >
+                        Nezávazná konzultace
+                    </button>
+                </a>
+            </li>
+        </ul>
+
+        {
+            /* Mobile menu logic by se přesunula sem jako HTML + JS schování/zobrazení */
+        }
+        {/* <MobileMenuAstro links={LINKS} /> */}
+    </nav>
+</header>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const header = document.getElementById("main-header");
+        if (!header) return;
+
+        const isHomePage = header.dataset.isHomepage === "true";
+        const isInsectNets = header.dataset.isInsectNets === "true";
+
+        let lastScrollY = window.scrollY;
+        const sectionIds = ["home", "sluzby", "omne", "recenze"];
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        function getHeaderBackgroundColor(currentScrollY: number) {
+            // Pokud jsme na sítě-proti-hmyzu, je VŽDY zelený
+            if (isInsectNets) return "bg-foreground";
+
+            // Jinak původní logika: nad 900px zelený, jinak průhledný blur
+            return currentScrollY >= 900
+                ? "bg-foreground"
+                : "backdrop-blur-2xl";
+        }
+
+        function handleScroll() {
+            const currentScrollY = window.scrollY;
+
+            // 1. Zobrazení / skrývání hlavičky při scrollu
+            const scrollDown =
+                currentScrollY > lastScrollY && currentScrollY > 100;
+            if (scrollDown && currentScrollY !== 0) {
+                header?.classList.add("-translate-y-32");
+                header?.classList.remove("translate-y-0");
+            } else {
+                header?.classList.remove("-translate-y-32");
+                header?.classList.add("translate-y-0");
+            }
+
+            // 2. Barva pozadí
+            const newBg = getHeaderBackgroundColor(currentScrollY);
+            header?.classList.remove(
+                "bg-foreground",
+                "backdrop-blur-2xl",
+                "backdrop-blur-lg",
+            );
+            header?.classList.add(newBg);
+
+            // 3. Zvýraznění aktivní sekce na HomePage
+            if (isHomePage) {
+                let currentActive = "";
+                for (const id of sectionIds) {
+                    const section = document.getElementById(id);
+                    if (!section) continue;
+
+                    const sectionTop = section.offsetTop - 100;
+                    if (
+                        currentScrollY >= sectionTop &&
+                        currentScrollY < sectionTop + section.clientHeight
+                    ) {
+                        currentActive = id;
+                        break;
+                    }
+                }
+
+                // Odbarvení všech a obarvení aktivního
+                navLinks.forEach((link) => {
+                    if (link.parentElement) {
+                        if (link.getAttribute("data-hash") === currentActive) {
+                            link.parentElement.classList.add("active");
+                        } else {
+                            link.parentElement.classList.remove("active");
+                        }
+                    }
+                });
+            }
+
+            lastScrollY = currentScrollY;
+        }
+
+        // Throttled scroll listener
+        let timeoutId: number | undefined;
+        window.addEventListener(
+            "scroll",
+            () => {
+                if (timeoutId) clearTimeout(timeoutId);
+                timeoutId = window.setTimeout(handleScroll, 16);
+            },
+            { passive: true },
+        );
+
+        // Smooth scroll kód pro kliknutí na odkazy
+        navLinks.forEach((link) => {
+            link.addEventListener("click", (e) => {
+                const href = link.getAttribute("href");
+                const hash = link.getAttribute("data-hash");
+
+                if (isHomePage && hash && document.getElementById(hash)) {
+                    e.preventDefault();
+                    document
+                        .getElementById(hash)
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    window.history.pushState(null, "", `/#${hash}`);
+                }
+            });
+        });
+
+        // Inicializace při načtení
+        handleScroll();
+    });
+</script>

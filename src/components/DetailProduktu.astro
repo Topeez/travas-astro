@@ -1,0 +1,104 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { ArrowRight, Check } from "@lucide/astro";
+import Breadcrumb from "./Breadcrumb.astro";
+
+interface Props {
+    title: string;
+    description: string;
+    breadcrumbParent?: { title: string; href: string };
+    image: ImageMetadata;
+    imageAlt?: string;
+    productDescription: string;
+    features: string[];
+}
+
+const {
+    title,
+    description,
+    breadcrumbParent = { title: "Sítě proti hmyzu", href: "/site-proti-hmyzu" },
+    image,
+    imageAlt,
+    productDescription,
+    features,
+} = Astro.props;
+---
+
+<section class="py-44 cs-container">
+    {/* Breadcrumb */}
+    <Breadcrumb
+        aria-label="Breadcrumb navigation"
+        items={[
+            { title: "Domů", href: "/" },
+            breadcrumbParent,
+            { title: title },
+        ]}
+    />
+
+    {/* Nadpis */}
+    <div class="mt-20 mb-16 text-center">
+        <h1 class="font-bold text-3xl md:text-5xl">{title}</h1>
+        <p class="mx-auto mt-4 max-w-3xl text-muted-foreground text-lg">
+            {description}
+        </p>
+    </div>
+
+    {/* Obrázek a text */}
+    <div class="flex flex-col items-center gap-12 md:grid md:grid-cols-12">
+        {/* Obrázek */}
+        <div
+            class="relative col-span-12 md:col-span-6 w-full h-100 md:h-125 aspect-square"
+        >
+            <Image
+                src={image}
+                alt={imageAlt || title}
+                width={1920}
+                height={1080}
+                draggable={false}
+                class="shadow-lg rounded-2xl size-full object-cover"
+            />
+            <div
+                class="absolute inset-0 m-4 border-2 border-background/10 rounded-2xl pointer-events-none"
+            >
+            </div>
+        </div>
+
+        {/* Text */}
+        <div class="space-y-6 col-span-12 md:col-span-6">
+            <h2 class="font-bold text-2xl md:text-3xl md:text-left text-center">
+                Popis produktu
+            </h2>
+            <p class="md:text-left text-center leading-relaxed">
+                {productDescription}
+            </p>
+
+            <ul class="space-y-4 mb-8">
+                {
+                    features.map((item) => (
+                        <li class="flex items-start gap-3">
+                            <div class="bg-foreground mt-1 p-1 rounded-full shrink-0">
+                                <Check class="w-4 h-4 text-background" />
+                            </div>
+                            <span class="text-primary/90">{item}</span>
+                        </li>
+                    ))
+                }
+            </ul>
+
+            <div class="flex justify-center md:justify-start">
+                <a
+                    href="/#kontakt"
+                    class="group flex items-center gap-2 bg-foreground hover:bg-background px-6 md:px-8 py-3 border border-background hover:border-foreground rounded-4xl max-w-fit font-bold text-background hover:text-foreground text-lg md:text-xl transition-colors cursor-pointer"
+                    aria-label="Poptat se"
+                >
+                    Poptat se
+                    <ArrowRight
+                        size={20}
+                        class="transition-all group-hover:translate-x-1"
+                    />
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

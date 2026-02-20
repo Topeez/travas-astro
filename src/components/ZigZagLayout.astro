@@ -1,0 +1,86 @@
+---
+import { Image } from "astro:assets";
+import { Check, ArrowRight } from "@lucide/astro";
+import { cn } from "../lib/utils";
+import { ContactButton } from "./contact-button";
+
+interface Item {
+    id?: string;
+    title: string;
+    description: string;
+    features: string[];
+    // Důležité: imageSrc musí být ImageMetadata (importovaný obrázek), ne string!
+    imageSrc: ImageMetadata;
+    imageAlt?: string;
+    buttonText?: string;
+    buttonLink?: string;
+}
+
+interface Props {
+    items: Item[];
+    class?: string; // Astro používá 'class', ne 'className'
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<div class={cn("flex flex-col gap-24 md:gap-32", className)}>
+    {
+        items.map((item, index) => {
+            const isEven = index % 2 === 0;
+
+            return (
+                <div
+                    id={item.id}
+                    class="items-center gap-12 grid md:grid-cols-2 scroll-mt-24"
+                >
+                    <div
+                        class={cn(isEven ? "md:order-first" : "md:order-last")}
+                    >
+                        <h2 class="mb-6 font-bold text-foreground text-3xl md:text-4xl md:text-left text-center">
+                            {item.title}
+                        </h2>
+                        <p class="mb-6 text-muted-foreground text-lg md:text-left text-center leading-relaxed">
+                            {item.description}
+                        </p>
+
+                        <ul class="space-y-4 mb-8">
+                            {item.features.map((feature) => (
+                                <li class="flex items-start gap-3">
+                                    <div class="bg-foreground mt-1 p-1 rounded-full shrink-0">
+                                        <Check class="w-4 h-4 text-background" />
+                                    </div>
+                                    <span class="text-primary/90">
+                                        {feature}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <ContactButton
+                            href={item.buttonLink}
+                            linkPrefix={item.id}
+                            className="group inline-flex items-center"
+                            client:visible
+                        >
+                            {item.buttonText ||
+                                `Mám zájem o ${item.title.toLowerCase()}`}
+                            <ArrowRight class="ml-1.5 group-hover:ml-2 size-5 transition-all" />
+                        </ContactButton>
+                    </div>
+
+                    <div class="group relative shadow-2xl rounded-2xl w-full h-100 md:h-125 overflow-hidden">
+                        <Image
+                            src={item.imageSrc}
+                            alt={item.imageAlt || item.title}
+                            width={800}
+                            height={600}
+                            class="absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div class="absolute inset-0 m-4 border-2 border-background/10 rounded-2xl pointer-events-none" />
+                    </div>
+                </div>
+            );
+        })
+    }
+</div>

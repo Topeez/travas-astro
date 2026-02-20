@@ -1,0 +1,28 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    href: string;
+    src: ImageMetadata;
+    alt: string;
+    class?: string;
+}
+
+const { href, src, alt, class: className } = Astro.props;
+---
+
+<a
+    href={href}
+    target="_blank"
+    class:list={[
+        "inline-block transition-transform hover:scale-105",
+        className,
+    ]}
+>
+    <Image
+        src={src}
+        width={150}
+        alt={alt}
+        class="w-auto h-auto object-contain transition-all duration-300"
+    />
+</a>

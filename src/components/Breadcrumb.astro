@@ -1,0 +1,52 @@
+---
+import { ChevronRight } from "@lucide/astro";
+import { cn } from "../lib/utils";
+
+interface Crumb {
+    title: string;
+    href?: string;
+}
+
+interface Props {
+    items: Crumb[];
+    class?: string;
+}
+
+const { items, class: className } = Astro.props;
+---
+
+<nav
+    class={cn(
+        "flex items-center col-span-12 w-full text-muted-foreground text-sm",
+        className,
+    )}
+    aria-label="breadcrumb"
+>
+    {
+        items.map((item, index) => (
+            <div class="flex items-center">
+                {index !== 0 && (
+                    <ChevronRight aria-hidden="true" class="mx-2 w-4 h-4" />
+                )}
+
+                {item.href ? (
+                    <a
+                        href={item.href}
+                        class="text-foreground hover:underline underline-offset-4"
+                        aria-label={item.title}
+                    >
+                        {item.title}
+                    </a>
+                ) : (
+                    <span
+                        class="w-full font-bold text-muted-foreground"
+                        aria-current="page"
+                        aria-label={item.title}
+                    >
+                        {item.title}
+                    </span>
+                )}
+            </div>
+        ))
+    }
+</nav>

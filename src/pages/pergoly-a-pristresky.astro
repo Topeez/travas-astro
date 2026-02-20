@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Contact from "../components/Contact.astro";
+import HeroSection from "../components/HeroSection.astro";
+import ZigZagLayout from "../components/ZigZagLayout.astro";
+
+import heroImg from "../assets/img/bio-pergola-hero.jpg";
+import bioPergolaImg from "../assets/img/bio-pergola.jpg";
+import pristresekAutoImg from "../assets/img/pristresek-pro-auto.jpg";
+
+const breadcrumbItems = [
+    { title: "Domů", href: "/" },
+    { title: "Pergoly a přístřešky" },
+];
+
+const items = [
+    {
+        id: "bioklimaticke-pergoly",
+        title: "Bioklimatické pergoly",
+        description:
+            "Revoluční řešení zastřešení terasy. Díky naklápěcím lamelám můžete regulovat sluneční paprsky i proudění vzduchu. Při úplném uzavření vznikne nepromokavá střecha, která vás ochrání i před deštěm.",
+        imageSrc: bioPergolaImg,
+        features: [
+            "Naklápěcí lamely (regulace stínu a ventilace)",
+            "Integrovaný odvod vody v nohách pergoly",
+            "Vysoká odolnost proti větru a zatížení sněhem",
+            "Možnost screenových rolet",
+        ],
+        buttonLink: "#kontakt",
+        buttonText: "Mám zájem o pergolu",
+    },
+    {
+        id: "pristresky-pro-auta",
+        title: "Přístřešky pro auta (Carporty)",
+        description:
+            "Moderní alternativa garáže, která šetří místo a vypadá skvěle. Vzdušná konstrukce zajišťuje rychlé osychání vozu, čímž předchází korozi. V zimě vás navíc zbaví nutnosti škrábat námrazu.",
+        imageSrc: pristresekAutoImg,
+        features: [
+            "Ochrana laku před UV zářením a krupobitím",
+            "Cirkulace vzduchu (auto rychleji schne)",
+            "Bezúdržbová hliníková konstrukce (žádné natírání)",
+            "Moderní design sladěný s domem",
+        ],
+        buttonLink: "#kontakt",
+        buttonText: "Poptat přístřešek",
+    },
+];
+---
+
+<Layout
+    title="Pergoly a přístřešky | Travas Stínění"
+    description="Rozšiřte svůj obytný prostor pomocí moderních bioklimatických pergol a přístřešků pro auta."
+>
+    <HeroSection
+        title="Užívejte si zahradu za každého počasí a dopřejte svému vozu bezpečí pod moderním zastřešením."
+        backgroundImage={heroImg}
+        placeholderColor="#5ca437"
+        aria-label="Hero sekce pro pergoly a přístřešky"
+    />
+
+    {/* Změna className na class u HTML elementů */}
+    <section class="py-16 md:py-24 cs-container">
+        {
+            /* Pokud je Breadcrumb Astro komponenta, předáváme class. (Pokud React, zůstává className) */
+        }
+        <Breadcrumb items={breadcrumbItems} class="mb-12" />
+
+        {/* Úvodní text stránky */}
+        <div class="mb-20 max-w-3xl">
+            <h2
+                class="mb-6 font-bold text-3xl md:text-4xl md:text-left text-center"
+            >
+                Rozšiřte svůj obytný prostor
+            </h2>
+            <p class="text-muted-foreground text-lg md:text-left text-center">
+                Nabízíme špičková řešení z odolného hliníku. Ať už hledáte
+                stínění pro terasu nebo bezpečné parkování, naše konstrukce
+                vynikají dlouhou životností, bezúdržbovostí a moderním designem.
+            </p>
+        </div>
+
+        <ZigZagLayout items={items} />
+    </section>
+
+    <Contact client:load />
+</Layout>
