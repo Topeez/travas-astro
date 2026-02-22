@@ -15,9 +15,7 @@ const {
 
 const siteUrl = Astro.site ? Astro.site.toString() : "https://travasstineni.cz";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
-const ogImageUrl = image
-    ? new URL(image, siteUrl)
-    : new URL(`/og.png?title=${encodeURIComponent(title)}`, siteUrl);
+const ogImageUrl = new URL(image || "/og-image.png", siteUrl);
 
 const formattedTitle =
     title ===
