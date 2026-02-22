@@ -1,6 +1,7 @@
 ---
 import { ContactForm } from "../components/contact-form";
-import { contactInfo } from "../data/contact";
+import { contactData } from "../data/contact";
+import { Icon } from "astro-icon/components";
 ---
 
 <section
@@ -29,10 +30,10 @@ import { contactInfo } from "../data/contact";
 
                 <div class="space-y-6 mt-8">
                     {
-                        contactInfo.map((item) => (
+                        contactData.map((item) => (
                             <div class="flex items-start">
                                 <div class="flex justify-center items-center bg-foreground rounded-full size-10 text-background shrink-0">
-                                    <item.icon />
+                                    <Icon name={item.iconName} size={20} />
                                 </div>
                                 <div class="ml-4">
                                     <h3 class="font-bold text-lg">

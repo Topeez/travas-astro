@@ -131,21 +131,40 @@
         -webkit-text-stroke: 4px var(--foreground);
     }
 
-    .effect-shine {
-        mask-image: linear-gradient(
-            -75deg,
-            rgba(0, 0, 0, 0.7) 30%,
-            #000 50%,
-            rgba(0, 0, 0, 0.7) 70%
+    .shine-link {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .shine-base {
+        position: relative;
+        z-index: 1;
+    }
+
+    .shine-sweep {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+
+        color: transparent;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        /* úzký “pruh” odlesku, ne celý box */
+        background-image: linear-gradient(
+            110deg,
+            transparent 0%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.75) 50%,
+            transparent 60%,
+            transparent 100%
         );
-        mask-size: 200%;
-        -webkit-mask-image: linear-gradient(
-            -75deg,
-            rgba(0, 0, 0, 0.7) 30%,
-            #000 50%,
-            rgba(0, 0, 0, 0.7) 70%
-        );
-        -webkit-mask-size: 200%;
+        background-size: 250% 100%;
+        background-position: 150% 0;
+        opacity: 0;
     }
 }
 
@@ -173,19 +192,19 @@
 
 @keyframes bg-zoom-out {
     0% {
-        background-size: 103%;
+        transform: scale(1.03);
     }
     100% {
-        background-size: 100%;
+        transform: scale(1);
     }
 }
 
 @keyframes bg-zoom-out-mobile {
     0% {
-        background-size: 353%;
+        transform: scale(1.05);
     }
     100% {
-        background-size: 350%;
+        transform: scale(1);
     }
 }
 
@@ -203,13 +222,10 @@
 
 @keyframes shine {
     from {
-        mask-position: 150%;
-        -webkit-mask-position: 150%;
+        transform: translateX(-100%) skewX(-20deg);
     }
-
     to {
-        mask-position: -50%;
-        -webkit-mask-position: -50%;
+        transform: translateX(200%) skewX(-20deg);
     }
 }
 
@@ -228,6 +244,35 @@
     }
     100% {
         transform: rotate(0deg);
+    }
+}
+
+@keyframes shine-text {
+    from {
+        background-position: 150% 0;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    to {
+        background-position: -50% 0;
+        opacity: 0;
+    }
+}
+
+/* běží jen na hover/focus (Lighthouse load to většinou neflaguje) */
+.shine-link:hover .shine-sweep,
+.shine-link:focus-visible .shine-sweep {
+    animation: shine-text 1.4s ease-in-out 1;
+}
+
+/* a11y: respektuj reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .shine-link:hover .shine-sweep,
+    .shine-link:focus-visible .shine-sweep {
+        animation: none;
+        opacity: 0;
     }
 }
 

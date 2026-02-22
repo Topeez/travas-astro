@@ -2,7 +2,8 @@
 import { Image } from "astro:assets";
 import logoImg from "../assets/logo.png";
 import { services } from "../data/services";
-import { contactInfo } from "../data/contact";
+import { contactData } from "../data/contact";
+import { Icon } from "astro-icon/components";
 
 // Import log jako obrázků
 import climaxLogo from "../assets/img/climax-logo.png";
@@ -41,7 +42,7 @@ const currentYear = new Date().getFullYear();
                         href="https://www.climax.cz/"
                         src={climaxLogo}
                         alt="Climax Logo"
-                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-all"
                     />
                 </div>
                 <div class="flex justify-center w-28 md:w-36">
@@ -49,7 +50,7 @@ const currentYear = new Date().getFullYear();
                         href="https://www.isotra.cz/"
                         src={isotraLogo}
                         alt="Isotra Logo"
-                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-all"
                     />
                 </div>
                 <div class="flex justify-center w-28 md:w-36">
@@ -57,7 +58,7 @@ const currentYear = new Date().getFullYear();
                         href="https://www.jimi-tore.cz/"
                         src={jimiLogo}
                         alt="Jimi Tore Logo"
-                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-all"
                     />
                 </div>
                 <div class="flex justify-center w-28 md:w-36">
@@ -65,7 +66,7 @@ const currentYear = new Date().getFullYear();
                         href="https://www.trido.cz/"
                         src={tridoLogo}
                         alt="Trido Logo"
-                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-opacity"
+                        class="opacity-50 hover:opacity-100 brightness-0 invert transition-all"
                     />
                 </div>
             </div>
@@ -103,7 +104,7 @@ const currentYear = new Date().getFullYear();
             <!-- Sloupec 2: Služby -->
             <div class="md:text-left text-center">
                 <h4 class="mb-6 font-bold text-lg tracking-wide">Služby</h4>
-                <ul class="space-y-3 text-background/70 text-sm">
+                <ul class="space-y-2 text-background/70 text-md">
                     {
                         services.map((service) => (
                             <li>
@@ -123,7 +124,7 @@ const currentYear = new Date().getFullYear();
                 <h4 class="mb-6 font-bold text-lg tracking-wide">
                     Rychlé odkazy
                 </h4>
-                <ul class="space-y-3 text-background/70 text-sm">
+                <ul class="space-y-2 text-background/70 text-md">
                     {
                         navLinks.map((link) => (
                             <li>
@@ -141,13 +142,17 @@ const currentYear = new Date().getFullYear();
 
             <!-- Sloupec 4: Kontakt -->
             <div class="md:text-left text-center">
-                <h4 class="mb-6 font-bold text-lg tracking-wide">Kontakt</h4>
-                <ul class="space-y-4 text-background/70 text-sm">
+                <h4 class="mb-6 font-bold text-lg racking-wide te">Kontakt</h4>
+                <ul class="space-y-4 text-background/70 text-md">
                     {
-                        contactInfo.map((item) => (
-                            <li class="flex md:flex-row flex-col items-center md:items-start gap-3">
+                        contactData.map((item) => (
+                            <li class="flex md:flex-row flex-col items-center gap-3">
                                 <span class="mt-0.5 text-background shrink-0">
-                                    <item.icon size={20} />
+                                    <Icon
+                                        name={item.iconName}
+                                        size={20}
+                                        class="stroke-2"
+                                    />
                                 </span>
 
                                 <div class="leading-tight">
@@ -188,12 +193,13 @@ const currentYear = new Date().getFullYear();
                 Webovou stránku vytvořil
                 <a
                     href="https://www.topeeez.cz"
-                    class="font-bold animate-shine effect-shine"
+                    class="font-bold shine-link"
                     target="_blank"
                     draggable="false"
                     aria-label="Topeeez portfolio"
                 >
-                    <span> Topeeez</span>
+                    <span class="shine-base">Topeeez</span>
+                    <span class="shine-sweep" aria-hidden="true">Topeeez</span>
                 </a>
             </div>
         </div>

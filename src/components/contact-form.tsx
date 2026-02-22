@@ -96,7 +96,7 @@ export function ContactForm() {
     }
 
     const inputClasses =
-        "mt-1 px-4 py-3 border border-gray-300 focus:!border-foreground rounded-lg focus:outline-none focus:!ring-0 w-full transition-colors duration-300 ease-in-out";
+        "mt-1 px-4 py-3 border bg-background! border-gray-300 focus:!border-foreground rounded-lg focus:outline-none focus:!ring-0 w-full transition-colors duration-300 ease-in-out";
 
     return (
         <Form {...form}>
