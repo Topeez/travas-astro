@@ -17,11 +17,9 @@ const siteUrl = Astro.site ? Astro.site.toString() : "https://travasstineni.cz";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl);
 const ogImageUrl = new URL(image || "/og-image.png", siteUrl);
 
-const formattedTitle =
-    title ===
-    "Travas Stínění - Kompletní dodávka stínící techniky a garážových vrat"
-        ? title
-        : `Travas Stínění | ${title}`;
+const formattedTitle = title.toLowerCase().includes("travas")
+    ? title
+    : `Travas Stínění | ${title}`;
 ---
 
 <!-- Primární Meta Tagy -->
