@@ -17,10 +17,16 @@ const { links, liClasses } = Astro.props;
     >
         <div class="relative space-y-1" aria-hidden="true">
             {/* První linka - při otevření se zrotuje a posune doprostřed */}
-            <span class="block bg-background rounded-full w-6 h-1 group-aria-expanded:rotate-45 origin-center transition-all group-aria-expanded:translate-y-1 duration-300 ease-in-out hamburger-line-1">
+            <span
+                class="block bg-background rounded-full w-6 h-1 group-aria-expanded:rotate-45 origin-center transition-all group-aria-expanded:translate-y-1 duration-300 ease-in-out hamburger-line-1"
+            >
             </span>
-            {/* Druhá linka - při otevření se protáhne na w-6, zrotuje opačně a posune nahoru */}
-            <span class="block bg-background mt-1.5 rounded-full w-4 group-aria-expanded:w-6 h-1 group-aria-expanded:-rotate-45 origin-center transition-all group-aria-expanded:-translate-y-1.5 duration-300 ease-in-out hamburger-line-2">
+            {
+                /* Druhá linka - při otevření se protáhne na w-6, zrotuje opačně a posune nahoru */
+            }
+            <span
+                class="block bg-background mt-1.5 rounded-full w-4 group-aria-expanded:w-6 h-1 group-aria-expanded:-rotate-45 origin-center transition-all group-aria-expanded:-translate-y-1.5 duration-300 ease-in-out hamburger-line-2"
+            >
             </span>
         </div>
     </button>
@@ -112,7 +118,6 @@ const { links, liClasses } = Astro.props;
 
             let isOpen = false;
 
-            // Konstanty pro sledování aktivní sekce (stejné jako v desktop headeru)
             const sectionIds = ["home", "sluzby", "omne", "recenze"];
             const isHomePage =
                 window.location.pathname === "/" ||
@@ -180,7 +185,10 @@ const { links, liClasses } = Astro.props;
                             item.classList.add("blur-sm");
                     });
 
-                    openBtn?.classList.remove("opacity-0");
+                    openBtn?.classList.remove(
+                        "opacity-0",
+                        "pointer-events-none",
+                    );
                     openBtn?.classList.add("opacity-100");
                     openBtn?.setAttribute("aria-expanded", "false");
                     menu?.setAttribute("aria-hidden", "true");
@@ -286,5 +294,4 @@ const { links, liClasses } = Astro.props;
     if (!customElements.get("mobile-menu-wrapper")) {
         customElements.define("mobile-menu-wrapper", MobileMenu);
     }
-</script>
 </script>
