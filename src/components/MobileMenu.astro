@@ -5,34 +5,29 @@ interface Props {
 }
 
 const { links, liClasses } = Astro.props;
-
-// V Astro.props nepředáváme funkce (isActive, handleLinkClick, onToggle),
-// protože ty teď běží nativně v klientském <script>.
 ---
 
-<div class="lg:hidden">
+<mobile-menu-wrapper class="lg:hidden">
     {/* Hamburger Button (Open) */}
     <button
-        id="mobile-menu-open"
-        class="group z-1000 bg-transparent hover:bg-transparent opacity-100 shadow-none size-10 aspect-square font-bold text-foreground hover:text-background text-xl transition-opacity duration-300 cursor-pointer mobile-menu-button"
+        class="group z-1000 bg-transparent hover:bg-transparent opacity-100 shadow-none size-10 aspect-square font-bold text-foreground hover:text-background text-xl transition-opacity duration-300 cursor-pointer pointer-events-auto open-btn mobile-menu-button"
         aria-expanded="false"
         aria-controls="mobile-menu"
         aria-label="Otevřít navigační menu"
     >
-        <div class="space-y-1" aria-hidden="true">
-            <span
-                class="block bg-background rounded-full w-6 h-1 origin-center transition-all duration-300 ease-in-out hamburger-line-1"
-            ></span>
-            <span
-                class="block bg-background mt-1.5 rounded-full w-4 h-1 origin-center transition-all duration-300 ease-in-out hamburger-line-2"
-            ></span>
+        <div class="relative space-y-1" aria-hidden="true">
+            {/* První linka - při otevření se zrotuje a posune doprostřed */}
+            <span class="block bg-background rounded-full w-6 h-1 group-aria-expanded:rotate-45 origin-center transition-all group-aria-expanded:translate-y-1 duration-300 ease-in-out hamburger-line-1">
+            </span>
+            {/* Druhá linka - při otevření se protáhne na w-6, zrotuje opačně a posune nahoru */}
+            <span class="block bg-background mt-1.5 rounded-full w-4 group-aria-expanded:w-6 h-1 group-aria-expanded:-rotate-45 origin-center transition-all group-aria-expanded:-translate-y-1.5 duration-300 ease-in-out hamburger-line-2">
+            </span>
         </div>
     </button>
 
     {/* Mobile Menu Overlay */}
     <div
-        id="mobile-menu"
-        class="z-900 fixed inset-0 bg-foreground opacity-0 h-screen transition-all translate-y-full duration-500 ease-in-out pointer-events-none"
+        class="z-900 fixed inset-0 bg-foreground opacity-0 h-screen transition-all translate-y-full duration-500 ease-in-out pointer-events-none menu-overlay"
         style={{ top: "5rem" }}
         role="dialog"
         aria-modal="true"
@@ -41,8 +36,7 @@ const { links, liClasses } = Astro.props;
     >
         {/* Hamburger Button (Close) */}
         <button
-            id="mobile-menu-close"
-            class="group top-7 right-3.5 z-1000 absolute bg-transparent hover:bg-transparent shadow-none size-10 aspect-square font-bold text-foreground hover:text-background text-xl cursor-pointer mobile-menu-button"
+            class="group top-7 right-3.5 z-1000 absolute bg-transparent hover:bg-transparent shadow-none size-10 aspect-square font-bold text-foreground hover:text-background text-xl cursor-pointer pointer-events-auto close-btn mobile-menu-button"
             aria-label="Zavřít navigační menu"
         >
             <div class="space-y-1" aria-hidden="true">
@@ -56,14 +50,12 @@ const { links, liClasses } = Astro.props;
         </button>
 
         <ul
-            id="mobile-menu-list"
-            class="flex flex-col justify-center items-center gap-8 opacity-0 h-full overflow-hidden font-bold text-background text-4xl text-center transition-all translate-y-8 duration-700 ease-in-out"
+            class="flex flex-col justify-center items-center gap-8 opacity-0 h-full overflow-hidden font-bold text-background text-4xl text-center transition-all translate-y-8 duration-700 ease-in-out menu-list"
             role="menu"
             aria-label="Mobilní navigační odkazy"
         >
             {
                 links.map((link, index) => {
-                    // Připravíme URL pro href (pro HP použijeme jen hash, mimo HP plnou cestu)
                     const isHash = link.href.startsWith("#");
                     const href = isHash ? `/${link.href}` : link.href;
 
@@ -75,7 +67,7 @@ const { links, liClasses } = Astro.props;
                         >
                             <a
                                 href={href}
-                                class="block mobile-nav-link"
+                                class="block pointer-events-auto mobile-nav-link"
                                 data-hash={link.href.replace("#", "")}
                                 role="menuitem"
                                 aria-label={`Přejít na sekci ${link.label}`}
@@ -94,12 +86,12 @@ const { links, liClasses } = Astro.props;
             >
                 <a
                     href="/#kontakt"
-                    class="mobile-nav-link"
+                    class="pointer-events-auto mobile-nav-link"
                     data-hash="kontakt"
                     aria-label="Přejít na kontaktní formulář pro nezávaznou konzultaci"
                 >
                     <button
-                        class="bg-background hover:bg-background hover:shadow-xl px-8 py-6 rounded-4xl w-full font-bold text-foreground hover:text-foreground text-xl transition-all duration-300 cursor-pointer"
+                        class="bg-background hover:bg-background hover:shadow-xl px-8 py-6 rounded-4xl w-full font-bold text-foreground hover:text-foreground text-xl transition-all duration-300 cursor-pointer pointer-events-auto"
                     >
                         Nezávazná konzultace
                     </button>
@@ -107,144 +99,192 @@ const { links, liClasses } = Astro.props;
             </li>
         </ul>
     </div>
-</div>
-
+</mobile-menu-wrapper>
 <script>
-    // Použití astro:page-load zajistí, že skript bude fungovat i s View Transitions
-    document.addEventListener("astro:page-load", () => {
-        const openBtn = document.getElementById("mobile-menu-open");
-        const closeBtn = document.getElementById("mobile-menu-close");
-        const menu = document.getElementById("mobile-menu");
-        const menuList = document.getElementById("mobile-menu-list");
-        const navItems = document.querySelectorAll(".mobile-nav-item");
-        const navLinks = document.querySelectorAll(".mobile-nav-link");
-        const line1 = document.querySelector(".hamburger-line-1");
-        const line2 = document.querySelector(".hamburger-line-2");
+    class MobileMenu extends HTMLElement {
+        connectedCallback() {
+            const openBtn = this.querySelector(".open-btn");
+            const closeBtn = this.querySelector(".close-btn");
+            const menu = this.querySelector(".menu-overlay");
+            const menuList = this.querySelector(".menu-list");
+            const navItems = this.querySelectorAll(".mobile-nav-item");
+            const navLinks = this.querySelectorAll(".mobile-nav-link");
 
-        let isOpen = false;
+            let isOpen = false;
 
-        function toggleMenu() {
-            isOpen = !isOpen;
+            // Konstanty pro sledování aktivní sekce (stejné jako v desktop headeru)
+            const sectionIds = ["home", "sluzby", "omne", "recenze"];
+            const isHomePage =
+                window.location.pathname === "/" ||
+                window.location.pathname === "";
 
-            if (isOpen) {
-                // Otevřít menu
-                menu?.classList.remove(
-                    "translate-y-full",
-                    "opacity-0",
-                    "pointer-events-none",
-                );
-                menu?.classList.add(
-                    "-translate-y-20",
-                    "opacity-100",
-                    "pointer-events-auto",
-                );
+            const toggleMenu = () => {
+                isOpen = !isOpen;
 
-                // Animate lists
-                menuList?.classList.remove("opacity-0", "translate-y-8");
-                menuList?.classList.add("opacity-100", "translate-y-0");
-
-                navItems.forEach((item) => {
-                    item.classList.remove(
+                if (isOpen) {
+                    menu?.classList.remove(
+                        "translate-y-full",
                         "opacity-0",
-                        "translate-y-4",
-                        "blur-sm",
+                        "pointer-events-none",
                     );
-                    item.classList.add(
+                    menu?.classList.add(
+                        "-translate-y-20",
                         "opacity-100",
-                        "translate-y-0",
-                        "blur-none",
+                        "pointer-events-auto",
                     );
-                });
 
-                // Hide open button, morph to X is handled in the separate close button
-                openBtn?.classList.remove("opacity-100");
-                openBtn?.classList.add("opacity-0");
-                openBtn?.setAttribute("aria-expanded", "true");
-                menu?.setAttribute("aria-hidden", "false");
+                    menuList?.classList.remove("opacity-0", "translate-y-8");
+                    menuList?.classList.add("opacity-100", "translate-y-0");
 
-                // Disable background scroll
-                document.body.style.overflow = "hidden";
-            } else {
-                // Zavřít menu
-                menu?.classList.add(
-                    "translate-y-full",
-                    "opacity-0",
-                    "pointer-events-none",
-                );
-                menu?.classList.remove(
-                    "-translate-y-20",
-                    "opacity-100",
-                    "pointer-events-auto",
-                );
+                    navItems.forEach((item) => {
+                        item.classList.remove(
+                            "opacity-0",
+                            "translate-y-4",
+                            "blur-sm",
+                        );
+                        item.classList.add(
+                            "opacity-100",
+                            "translate-y-0",
+                            "blur-none",
+                        );
+                    });
 
-                // Animate lists
-                menuList?.classList.add("opacity-0", "translate-y-8");
-                menuList?.classList.remove("opacity-100", "translate-y-0");
+                    openBtn?.classList.add("opacity-0", "pointer-events-none");
+                    openBtn?.setAttribute("aria-expanded", "true");
+                    menu?.setAttribute("aria-hidden", "false");
 
-                navItems.forEach((item) => {
-                    item.classList.add("opacity-0", "translate-y-4");
-                    item.classList.remove(
+                    document.body.style.overflow = "hidden";
+                } else {
+                    menu?.classList.add(
+                        "translate-y-full",
+                        "opacity-0",
+                        "pointer-events-none",
+                    );
+                    menu?.classList.remove(
+                        "-translate-y-20",
                         "opacity-100",
-                        "translate-y-0",
-                        "blur-none",
+                        "pointer-events-auto",
                     );
-                    // Obnova blur u posledního tlačítka
-                    if (item === navItems[navItems.length - 1]) {
-                        item.classList.add("blur-sm");
+
+                    menuList?.classList.add("opacity-0", "translate-y-8");
+                    menuList?.classList.remove("opacity-100", "translate-y-0");
+
+                    navItems.forEach((item, i) => {
+                        item.classList.add("opacity-0", "translate-y-4");
+                        item.classList.remove(
+                            "opacity-100",
+                            "translate-y-0",
+                            "blur-none",
+                        );
+                        if (i === navItems.length - 1)
+                            item.classList.add("blur-sm");
+                    });
+
+                    openBtn?.classList.remove("opacity-0");
+                    openBtn?.classList.add("opacity-100");
+                    openBtn?.setAttribute("aria-expanded", "false");
+                    menu?.setAttribute("aria-hidden", "true");
+
+                    document.body.style.overflow = "auto";
+                }
+            };
+
+            // ----- LOGIKA PRO AKTIVNÍ TŘÍDU PŘI SCROLLOVÁNÍ -----
+            const handleScroll = () => {
+                if (!isHomePage) return;
+
+                const currentScrollY = window.scrollY;
+                let currentActive = "";
+
+                for (const id of sectionIds) {
+                    const section = document.getElementById(id);
+                    if (!section) continue;
+
+                    // Mírný offset (-100), aby se sekce přepla o trochu dříve
+                    const sectionTop = section.offsetTop - 100;
+                    if (
+                        currentScrollY >= sectionTop &&
+                        currentScrollY < sectionTop + section.clientHeight
+                    ) {
+                        currentActive = id;
+                        break;
+                    }
+                }
+
+                // Aplikování .active class na li (mobile-nav-item)
+                navLinks.forEach((link) => {
+                    const parentLi = link.parentElement;
+                    if (!parentLi) return;
+
+                    if (link.getAttribute("data-hash") === currentActive) {
+                        parentLi.classList.add("active");
+                    } else {
+                        parentLi.classList.remove("active");
                     }
                 });
+            };
 
-                openBtn?.classList.remove("opacity-0");
-                openBtn?.classList.add("opacity-100");
-                openBtn?.setAttribute("aria-expanded", "false");
-                menu?.setAttribute("aria-hidden", "true");
+            // Throttling scroll listeneru
+            let timeoutId: number | undefined;
+            window.addEventListener(
+                "scroll",
+                () => {
+                    if (timeoutId) clearTimeout(timeoutId);
+                    timeoutId = window.setTimeout(handleScroll, 16);
+                },
+                { passive: true },
+            );
 
-                // Enable background scroll
-                document.body.style.overflow = "auto";
-            }
-        }
+            // Zavoláme hned při načtení, aby se vybarvila sekce, pokud uživatel rovnou načte např /#sluzby
+            handleScroll();
+            // ----------------------------------------------------
 
-        // Event Listeners
-        openBtn?.addEventListener("click", toggleMenu);
-        closeBtn?.addEventListener("click", toggleMenu);
+            // Event Listeners
+            openBtn?.addEventListener("click", toggleMenu);
+            closeBtn?.addEventListener("click", toggleMenu);
 
-        // Close on link click & smooth scroll (pokud jsme na HP)
-        navLinks.forEach((link) => {
-            link.addEventListener("click", (e) => {
-                toggleMenu();
+            navLinks.forEach((link) => {
+                link.addEventListener("click", (e) => {
+                    toggleMenu();
 
-                const hash = link.getAttribute("data-hash");
-                const isHomePage =
-                    window.location.pathname === "/" ||
-                    window.location.pathname === "";
+                    const hash = link.getAttribute("data-hash");
 
-                if (isHomePage && hash && document.getElementById(hash)) {
-                    e.preventDefault();
-                    document
-                        .getElementById(hash)
-                        ?.scrollIntoView({ behavior: "smooth" });
-                    window.history.pushState(null, "", `/#${hash}`);
+                    if (isHomePage && hash && document.getElementById(hash)) {
+                        e.preventDefault();
+                        document
+                            .getElementById(hash)
+                            ?.scrollIntoView({ behavior: "smooth" });
+                        window.history.pushState(null, "", `/#${hash}`);
+
+                        // Ruční přenastavení active po kliknutí
+                        // (jinak by to muselo čekat až na scrollování)
+                        navLinks.forEach((l) =>
+                            l.parentElement?.classList.remove("active"),
+                        );
+                        link.parentElement?.classList.add("active");
+                    }
+                });
+            });
+
+            // Kliknutí mimo
+            document.addEventListener("mousedown", (e) => {
+                if (!isOpen || !menu) return;
+                const target = e.target as Element;
+                if (!menu.contains(target) && !target.closest(".open-btn")) {
+                    toggleMenu();
                 }
             });
-        });
 
-        // Click outside & Escape key logic
-        document.addEventListener("mousedown", (e) => {
-            if (!isOpen) return;
-            const target = e.target as Element;
-            if (
-                menu &&
-                !menu.contains(target) &&
-                !target.closest(".mobile-menu-button")
-            ) {
-                toggleMenu();
-            }
-        });
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && isOpen) {
+                    toggleMenu();
+                }
+            });
+        }
+    }
 
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && isOpen) {
-                toggleMenu();
-            }
-        });
-    });
+    if (!customElements.get("mobile-menu-wrapper")) {
+        customElements.define("mobile-menu-wrapper", MobileMenu);
+    }
+</script>
 </script>

@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logoImg from "../assets/logo.png";
-import MobileMenuAstro from "./MobileMenu.astro"; // Zřejmě si ho budeš muset taky přepsat, nebo sem vlož HTML přímo
+import MobileMenu from "./MobileMenu.astro"; // Zřejmě si ho budeš muset taky přepsat, nebo sem vlož HTML přímo
 import { Button } from "./ui/button"; // Pokud máš Astro/Tailwind button, případně dej jen klasické <button>
 
 // 1. Získáme aktuální cestu hned na serveru
@@ -23,9 +23,6 @@ const liClasses =
     "li-item relative after:w-full after:h-[3px] after:origin-center will-change-transform";
 ---
 
-{
-    /* Předáváme proměnné ze serveru do klientského scriptu pomocí data- atributů na hlavičce */
-}
 <header
     id="main-header"
     class={`fixed top-0 left-0 right-0 z-999 shadow-sm transition-all duration-500 will-change-transform translate-y-0 ${defaultBgClass}`}
@@ -57,7 +54,6 @@ const liClasses =
         >
             {
                 LINKS.map((link) => {
-                    // Sestavení URL: pokud jsme na homepage a odkaz je kotva, tak jen "#id", jinak "/#id"
                     const href =
                         isHomePage && link.href.startsWith("#")
                             ? link.href
@@ -96,14 +92,11 @@ const liClasses =
             </li>
         </ul>
 
-        {
-            /* Mobile menu logic by se přesunula sem jako HTML + JS schování/zobrazení */
-        }
-        {/* <MobileMenuAstro links={LINKS} /> */}
+        <MobileMenu links={LINKS} liClasses={liClasses} />
     </nav>
 </header>
 
-<script>
+<script is:inline data-astro-rerun>
     document.addEventListener("DOMContentLoaded", () => {
         const header = document.getElementById("main-header");
         if (!header) return;
@@ -115,7 +108,7 @@ const liClasses =
         const sectionIds = ["home", "sluzby", "omne", "recenze"];
         const navLinks = document.querySelectorAll(".nav-link");
 
-        function getHeaderBackgroundColor(currentScrollY: number) {
+        function getHeaderBackgroundColor(currentScrollY) {
             // Pokud jsme na sítě-proti-hmyzu, je VŽDY zelený
             if (isInsectNets) return "bg-foreground";
 
@@ -181,7 +174,7 @@ const liClasses =
         }
 
         // Throttled scroll listener
-        let timeoutId: number | undefined;
+        let timeoutId = null;
         window.addEventListener(
             "scroll",
             () => {
