@@ -1,0 +1,56 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+    image?: string;
+    article?: boolean;
+}
+
+const {
+    title = "Travas Stínění - Kompletní dodávka stínící techniky a garážových vrat",
+    description = "Profesionální montáž stínící techniky, garážových vrat a markýz. Více než 8 let zkušeností, rychlé termíny do 4 týdnů, spolehlivý servis. Kontaktujte nás pro nezávaznou nabídku.",
+    image = "/assets/img/logo/stineni_big.png",
+    article = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.toString() : "https://travasstineni.cz";
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const socialImageURL = new URL(image, siteUrl);
+
+const formattedTitle =
+    title ===
+    "Travas Stínění - Kompletní dodávka stínící techniky a garážových vrat"
+        ? title
+        : `Travas Stínění | ${title}`;
+---
+
+<!-- Primární Meta Tagy -->
+<title>{formattedTitle}</title>
+<meta name="title" content={formattedTitle} />
+<meta name="description" content={description} />
+<meta
+    name="keywords"
+    content="rolety, žaluzie, markýzy, garážová vrata, stínící technika, montáž, servis, Moravský region"
+/>
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={article ? "article" : "website"} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImageURL} />
+<meta property="og:site_name" content="Travas Stínění" />
+<meta property="og:locale" content="cs_CZ" />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={formattedTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={socialImageURL} />
+
+<!-- Robots -->
+<meta name="robots" content="index, follow" />

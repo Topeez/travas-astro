@@ -9,6 +9,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+    site: "https://travasstineni.cz",
+
     integrations: [react(), icon()],
     output: "static",
     adapter: vercel(),
