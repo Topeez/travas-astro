@@ -109,10 +109,9 @@ const liClasses =
         const navLinks = document.querySelectorAll(".nav-link");
 
         function getHeaderBackgroundColor(currentScrollY) {
-            // Pokud jsme na sítě-proti-hmyzu, je VŽDY zelený
+
             if (isInsectNets) return "bg-foreground";
 
-            // Jinak původní logika: nad 900px zelený, jinak průhledný blur
             return currentScrollY >= 900
                 ? "bg-foreground"
                 : "backdrop-blur-2xl";
