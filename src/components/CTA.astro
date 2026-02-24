@@ -4,7 +4,7 @@ const range = (n: number) => Array.from({ length: n }, (_, i) => i);
 ---
 
 <section
-    class="relative bg-foreground py-8 sm:py-12 lg:py-16 overflow-hidden"
+    class="relative bg-foreground selection:bg-background py-8 sm:py-12 lg:py-16 overflow-hidden selection:text-foreground"
     aria-label="Kontaktní sekce"
 >
     <div class="z-30 relative px-4 sm:px-6 lg:px-8 text-center cs-container">
@@ -25,11 +25,14 @@ const range = (n: number) => Array.from({ length: n }, (_, i) => i);
                 class="group inline-block bg-background hover:bg-transparent px-6 sm:px-8 py-3 sm:py-4 border-2 border-background rounded-full font-bold text-popover-foreground hover:text-background text-base sm:text-lg transition"
                 aria-label="Kontaktujte mě"
             >
-                <span class="mr-2">Ozvat se</span>
+                <span
+                    class="selection:bg-foreground! mr-2 selection:text-background!"
+                    >Ozvat se</span
+                >
                 {/* Lucide ikona se vyrenderuje jako SVG */}
                 <ArrowRight
                     size={20}
-                    class="inline-block transition group-hover:translate-x-1"
+                    class="inline-block selection:bg-foreground! selection:text-background! transition group-hover:translate-x-1"
                 />
             </a>
         </div>

@@ -75,7 +75,9 @@ const currentYear = new Date().getFullYear();
         <!-- Oddělovač (HTML verze je lehčí než React component) -->
         <hr class="mb-12 border-background/10" />
 
-        <div class="gap-10 grid grid-cols-1 md:grid-cols-4">
+        <div
+            class="gap-10 grid grid-cols-1 md:grid-cols-4 selection:bg-background! selection:text-foreground!"
+        >
             <!-- Sloupec 1: Logo a info -->
             <div
                 class="flex flex-col items-center md:items-start md:text-left text-center"
@@ -184,7 +186,7 @@ const currentYear = new Date().getFullYear();
 
         <!-- Copyright -->
         <div
-            class="flex flex-col justify-between items-center gap-4 text-background/40 text-xs"
+            class="flex flex-col justify-between items-center gap-4 selection:bg-background! text-background/40 selection:text-foreground! text-xs"
         >
             <div class="font-bold text-muted text-center">
                 &copy; {currentYear} Travas Stínění. Všechna práva vyhrazena.
