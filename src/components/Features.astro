@@ -19,7 +19,6 @@ const { features, subtitle, class: className } = Astro.props;
 >
     <div class="space-y-16 col-span-12 py-12">
         <div class="space-y-8 text-center">
-            <!-- Title se pošle jako slot -->
             <slot name="title" />
             {
                 subtitle && (

@@ -21,6 +21,13 @@ export const contactData = [
         target: "_blank"
     },
     {
+        iconName: "mdi:facebook",
+        title: "Facebook",
+        text: "travasstineni",
+        href: "https://www.facebook.com/profile.php?id=61586158924044",
+        target: "_blank"
+    },
+    {
         iconName: "lucide:map-pin",
         title: "Sídlo",
         text: "Kobylí 587, 691 10 Kobylí",

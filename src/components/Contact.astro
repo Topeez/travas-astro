@@ -11,27 +11,34 @@ import { Icon } from "astro-icon/components";
 >
     <div class="mx-auto px-4 cs-container">
         <div class="flex lg:flex-row flex-col gap-12">
-            <div class="lg:w-1/2">
-                <p
-                    class="font-bold text-muted-foreground text-base md:text-left text-center uppercase tracking-widest"
-                >
-                    kontakt
-                </p>
-                <h2
-                    class="font-bold text-3xl md:text-5xl md:text-left text-center"
-                >
-                    Kontaktujte mě
-                </h2>
-                <p
-                    class="mt-4 text-muted-foreground text-xl md:text-left text-center"
-                >
-                    Máte dotaz ohledně mých služeb? Rád vám poradím...
-                </p>
+            <div class="lg:w-1/2 h-full">
+                <div class="space-y-4">
+                    <p
+                        class="font-bold text-muted-foreground text-base md:text-left text-center uppercase tracking-widest animate-fb"
+                    >
+                        kontakt
+                    </p>
+                    <h2
+                        class="font-bold text-3xl md:text-5xl md:text-left text-center animate-fb-2"
+                    >
+                        Kontaktujte mě
+                    </h2>
+                    <p
+                        class="mt-4 text-muted-foreground text-xl md:text-left text-center animate-fb"
+                    >
+                        Máte dotaz ohledně mých služeb? Rád vám poradím...
+                    </p>
+                </div>
 
-                <div class="space-y-6 mt-8">
+                <div
+                    class="gap-6 grid grid-cols-1 md:grid-cols-2 md:grid-rows-3 md:grid-flow-col mt-8 sm:mt-24 md:mt-32"
+                >
                     {
-                        contactData.map((item) => (
-                            <div class="flex items-start">
+                        contactData.map((item, index) => (
+                            <div
+                                class="flex items-start animate-fl"
+                                style={`transition-delay: ${index * 150}ms`}
+                            >
                                 <div class="flex justify-center items-center bg-foreground rounded-full size-10 text-background shrink-0">
                                     <Icon name={item.iconName} size={20} />
                                 </div>
@@ -61,7 +68,9 @@ import { Icon } from "astro-icon/components";
             </div>
 
             <div class="lg:w-1/2">
-                <div class="bg-background shadow-lg p-6 md:p-8 rounded-xl">
+                <div
+                    class="bg-background shadow-lg p-6 md:p-8 rounded-xl animate-fr"
+                >
                     <h3
                         class="mb-4 font-bold text-3xl md:text-left text-center"
                     >

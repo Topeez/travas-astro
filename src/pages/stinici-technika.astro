@@ -27,7 +27,6 @@ const breadcrumbItems = [
     title="Stínicí technika | Travas Stínění"
     description="Komplexní řešení stínění pro váš domov."
 >
-    <!-- HeroSection (React) -->
     <HeroSection
         title="Komfort, světlo a soukromí pod kontrolou - stínící technika pro moderní domov"
         backgroundImage={heroBgImg}
@@ -41,16 +40,17 @@ const breadcrumbItems = [
         <div
             class="flex-col gap-12 md:grid md:grid-cols-12 w-full fflex cs-container"
         >
-            <!-- Breadcrumb (Astro) -->
             <Breadcrumb items={breadcrumbItems} aria-label="Breadcrumb" />
 
             <div class="space-y-6 md:col-span-12">
-                <h2 class="font-bold text-4xl md:text-5xl text-center">
+                <h2
+                    class="font-bold text-4xl md:text-5xl text-center animate-fb-2"
+                >
                     Co je to <span class="text-foreground"
                         >stínicí technika?</span
                     >
                 </h2>
-                <p class="text-xl leading-relaxed">
+                <p class="text-xl leading-relaxed animate-fb">
                     Stínicí technika zahrnuje širokou škálu produktů navržených
                     pro regulaci světla, teploty a soukromí v interiéru i
                     exteriéru. Od žaluzií, rolet, markýz až po pergoly - vše
@@ -80,18 +80,27 @@ const breadcrumbItems = [
                                 {/* Card */}
                                 <div
                                     class:list={[
-                                        "bg-background rounded-xl shadow-lg p-8 relative flex items-center min-h-36 overflow-hidden md:w-[45%] ml-12 md:ml-0",
+                                        // Základní třídy platné pro mobil (vše zarovnáno jako levá karta)
+                                        "bg-background rounded-xl shadow-lg p-8 relative flex items-center min-h-36 overflow-hidden md:w-[45%] ml-12 md:ml-0 justify-start text-left",
+                                        // Střídání chování aplikujeme až od breakpointu 'md' pro desktop
                                         index % 2 === 0
-                                            ? "md:mr-auto justify-start text-left"
-                                            : "md:ml-auto justify-end text-right flex-row-reverse",
+                                            ? "md:mr-auto animate-fl"
+                                            : "md:ml-auto md:justify-end md:text-right animate-fr",
                                     ]}
+                                    style={{
+                                        transitionDelay: `${index * 200}ms`,
+                                    }}
                                 >
                                     <p class="z-10 relative max-w-xs font-semibold text-xl">
                                         {item.text}
                                     </p>
 
                                     <span
-                                        class={`absolute font-black text-[180px] leading-none text-transparent opacity-50 text-outline-2 z-10 pointer-events-none select-none ${index % 2 === 0 ? "-right-8 -bottom-12" : "-left-8 -bottom-12"}`}
+                                        class={`absolute font-black text-[180px] leading-none text-transparent opacity-50 text-outline-2 z-10 pointer-events-none select-none -bottom-12 ${
+                                            index % 2 === 0
+                                                ? "-right-8"
+                                                : "-right-8 md:right-auto md:-left-8"
+                                        }`}
                                     >
                                         {"0" + item.id}
                                     </span>
@@ -114,7 +123,7 @@ const breadcrumbItems = [
                 >
                     <a
                         href="/stinici-technika/venkovni-stineni"
-                        class="group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-87.5 overflow-hidden transition-all hover:-translate-y-1 will-change-auto"
+                        class="group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-87.5 overflow-hidden transition-all hover:-translate-y-1 animate-fb will-change-auto"
                     >
                         <Image
                             src={venkovniImg}
@@ -163,7 +172,8 @@ const breadcrumbItems = [
 
                     <a
                         href="/stinici-technika/interierove-stineni"
-                        class="group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-87.5 overflow-hidden transition-all hover:-translate-y-1 will-change-auto"
+                        class="group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-87.5 overflow-hidden transition-all hover:-translate-y-1 animate-fb will-change-auto"
+                        style={`transition-delay: 150ms`}
                     >
                         <Image
                             src={interierImg}

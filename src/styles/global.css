@@ -47,6 +47,9 @@
     --animate-shimmer: shimmer 1.5s ease-in-out infinite;
     --animate-tilt: tilt-shaking 0.25s ease-in-out;
     --animate-scroll-x: scroll-x 200s linear infinite;
+
+    --ease-fluid: cubic-bezier(0.5, 0, 0, 1);
+    --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
 }
 
 :root {
@@ -156,7 +159,6 @@
         background-clip: text;
         -webkit-text-fill-color: transparent;
 
-        /* úzký “pruh” odlesku, ne celý box */
         background-image: linear-gradient(
             110deg,
             transparent 0%,
@@ -168,6 +170,63 @@
         background-size: 250% 100%;
         background-position: 150% 0;
         opacity: 0;
+    }
+
+    .animate-fb {
+        @apply opacity-0 translate-y-5 transition-all blur-sm duration-700 ease-snappy;
+    }
+    .animate-fb.is-visible {
+        @apply opacity-100 blur-none translate-y-0;
+    }
+
+    .animate-fb-2 {
+        @apply opacity-0 translate-y-8 blur-sm transition-all duration-1000 ease-snappy;
+    }
+    .animate-fb-2.is-visible {
+        @apply opacity-100 blur-none translate-y-0;
+    }
+
+    .animate-fb-card {
+        @apply opacity-0 translate-y-5 transition-all duration-700 ease-snappy;
+    }
+    .animate-fb-card.is-visible {
+        @apply opacity-100 md:odd:-translate-y-12 translate-y-0;
+    }
+
+    .animate-fl {
+        @apply opacity-0 -translate-x-12 transition-all duration-700 ease-snappy blur-sm;
+    }
+    .animate-fl.is-visible {
+        @apply opacity-100 blur-none translate-x-0;
+    }
+
+    .animate-fr {
+        @apply opacity-0 translate-x-12 transition-all duration-700 ease-snappy blur-sm;
+    }
+    .animate-fr.is-visible {
+        @apply opacity-100 blur-none translate-x-0;
+    }
+
+    .animate-ft {
+        @apply opacity-0 translate-y-12 transition-all duration-700 ease-snappy;
+    }
+    .animate-ft.is-visible {
+        @apply opacity-100 translate-y-0;
+    }
+
+    .animate-s {
+        @apply opacity-0 transition-all duration-1300 ease-snappy;
+    }
+
+    .animate-s.is-visible {
+        @apply opacity-100;
+    }
+
+    .animate-sc {
+        @apply opacity-0 transition-all duration-800 ease-snappy;
+    }
+    .animate-sc.is-visible {
+        @apply opacity-100;
     }
 }
 

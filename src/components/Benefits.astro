@@ -13,18 +13,18 @@ import { benefits } from "../data/benefits";
         <div class="flex lg:flex-row flex-col items-center gap-12">
             <div class="w-full lg:w-1/2">
                 <p
-                    class="font-bold text-muted-foreground text-base md:text-left text-center uppercase tracking-widest"
+                    class="font-bold text-muted-foreground text-base md:text-left text-center uppercase tracking-widest animate-fb"
                 >
                     o mně
                 </p>
                 <h2
-                    class="font-bold text-3xl md:text-5xl md:text-left text-center"
+                    class="font-bold text-3xl md:text-5xl md:text-left text-center animate-fb-2"
                     aria-label="Why Choose Me"
                 >
                     Proč si vybrat právě mě
                 </h2>
                 <p
-                    class="mt-4 max-w-xl text-muted-foreground md:text-xl md:text-left text-center"
+                    class="mt-4 max-w-xl text-muted-foreground md:text-xl md:text-left text-center animate-fb"
                 >
                     S více než
                     <span class="font-bold text-foreground">
@@ -37,9 +37,12 @@ import { benefits } from "../data/benefits";
 
                 <div class="space-y-8 mt-10">
                     {
-                        benefits.map((benefit) => (
-                            <div class="group flex items-start cursor-default">
-                                <div class="flex justify-center items-center bg-primary/10 group-hover:bg-foreground rounded-full w-14 h-14 transition-colors group-hover:animate-tilt shrink-0">
+                        benefits.map((benefit, index) => (
+                            <div
+                                class="group flex items-start animate-fb-2 cursor-default"
+                                style={`transition-delay: ${index * 120}ms`}
+                            >
+                                <div class="flex justify-center items-center bg-primary/10 group-hover:bg-foreground rounded-full size-14 transition-colors group-hover:animate-tilt shrink-0">
                                     <benefit.icon
                                         size={24}
                                         className="text-foreground group-hover:text-background transition-colors"
@@ -64,16 +67,11 @@ import { benefits } from "../data/benefits";
                     class="relative shadow-lg rounded-xl w-full h-96 md:h-125 overflow-hidden"
                     aria-label="Installation Image"
                 >
-                    <!-- 
-                       Astro Image nemá prop 'fill' jako Next.js.
-                       Musíme to nastylovat CSSkem, aby se roztáhl.
-                       'width' a 'height' tady říkají, v jaké kvalitě/rozlišení se má obrázek vygenerovat.
-                    -->
                     <Image
                         src={montaz}
                         alt="Montáž stínicí techniky"
                         width={800}
-                        class="absolute inset-0 w-full h-full object-cover"
+                        class="absolute inset-0 w-full h-full object-cover animate-sc"
                     />
                 </div>
             </div>

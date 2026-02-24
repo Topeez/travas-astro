@@ -1,83 +1,7 @@
 ---
 import { Star } from "@lucide/astro";
+import { testimonials } from "../data/testimonials";
 
-// Data přesuneme sem (nebo do src/data/testimonials.ts)
-const testimonials = [
-    {
-        initials: "PN",
-        name: "Petr Novák",
-        type: "Rolety",
-        text: "Velmi profesionální přístup. Montáž rolet proběhla rychle a precizně. Vše funguje bez problémů. Rozhodně doporučuji!",
-    },
-    {
-        initials: "JK",
-        name: "Jana Kovářová",
-        type: "Markýza",
-        text: "Objednala jsem si markýzu na terasu a jsem nadšená. Instalace byla rychlá, cena férová a markýza dokonale plní svůj účel. Skvělá práce!",
-    },
-    {
-        initials: "MS",
-        name: "Martin Svoboda",
-        type: "Garážová vrata",
-        text: "Montáž garážových vrat proběhla bez problémů. Ocenil jsem individuální přístup a odborné rady. Servis je také na výborné úrovni.",
-    },
-    {
-        initials: "AH",
-        name: "Anna Horáková",
-        type: "Obecný servis",
-        text: "Perfektní servis od začátku do konce. Rychlá reakce na dotazy, kvalitní materiály a precizní montáž. Jsem velmi spokojená s výsledkem.",
-    },
-    {
-        initials: "TV",
-        name: "Tomáš Veselý",
-        type: "Žaluzie",
-        text: "Excellentní práce! Montáž žaluzií proběhla bez problémů a výsledek předčil moje očekávání. Určitě budu doporučovat dál.",
-    },
-    {
-        initials: "EČ",
-        name: "Eva Černá",
-        type: "Venkovní žaluzie",
-        text: "Venkovní žaluzie nám výrazně zlepšily pohodu bydlení. Montáž byla profesionální a poradil nám i s výběrem správného typu. Výborná komunikace!",
-    },
-    {
-        initials: "JH",
-        name: "Josef Horák",
-        type: "Markýza",
-        text: "Investice do markýzy se určitě vyplatila. Kvalitní materiál, precizní práce a dodržení termínu. Doporučuji všem!",
-    },
-    {
-        initials: "MN",
-        name: "Marie Nováková",
-        type: "Rolety",
-        text: "Velmi jsem si cenila individuálního přístupu a trpělivosti při výběru rolet. Montáž proběhla čistě a rychle. Jsem maximálně spokojená.",
-    },
-    {
-        initials: "DS",
-        name: "David Svoboda",
-        type: "Sekční vrata",
-        text: "Sekční vrata fungují perfektně. Ocenil jsem hlavně poradenství při výběru a rychlost realizace. Profesionální služby na vysoké úrovni.",
-    },
-    {
-        initials: "KV",
-        name: "Klára Veselá",
-        type: "Okenní sítě",
-        text: "Montáž okenních sítí byla rychlá a bez nepořádku. Sítě perfektně sedí a plní svou funkci. Rozhodně se obrátím znovu při dalších potřebách.",
-    },
-    {
-        initials: "PK",
-        name: "Pavel Kratochvíl",
-        type: "Oprava markýzy",
-        text: "Rychlá a efektivní oprava staré markýzy. Problém byl vyřešen promptně. Férová cena a spolehlivý servis. Velmi doporučuji!",
-    },
-    {
-        initials: "LM",
-        name: "Lucie Malá",
-        type: "Lamelové žaluzie",
-        text: "Lamelové žaluzie do kanceláře splnily všechna očekávání. Výborná kvalita, přesná montáž a vstřícný přístup. Díky za profesionální práci!",
-    },
-];
-
-// Zduplikujeme pole pro infinite scroll efekt
 const duplicatedTestimonials = [...testimonials, ...testimonials];
 ---
 
@@ -85,11 +9,13 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
     <div class="mx-auto px-4 cs-container">
         <div class="mx-auto mb-16 max-w-2xl text-center">
             <p
-                class="font-bold text-muted-foreground text-base uppercase tracking-widest"
+                class="font-bold text-muted-foreground text-base uppercase tracking-widest animate-fb"
             >
                 reference
             </p>
-            <h2 class="py-2 font-bold text-3xl md:text-5xl leading-relaxed">
+            <h2
+                class="py-2 font-bold text-3xl md:text-5xl leading-relaxed animte-fb-2"
+            >
                 Co říkají moji
                 <span class="inline-block relative px-1">
                     <span
@@ -98,13 +24,13 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
                     <span class="relative px-1 text-background">zákazníci</span>
                 </span>
             </h2>
-            <p class="mt-4 text-muted-foreground text-xl">
+            <p class="mt-4 text-muted-foreground text-xl animate-fb">
                 Přečtěte si reference od spokojených klientů...
             </p>
         </div>
     </div>
 
-    <div class="relative w-full">
+    <div class="relative w-full animate-s">
         <div
             class="top-0 bottom-0 left-0 z-10 absolute bg-linear-to-r from-background to-transparent w-10 md:w-20 pointer-events-none"
         >
@@ -114,12 +40,6 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
         >
         </div>
 
-        {
-            /* 
-            CSS scroll kontejner 
-            group-hover na rodiči nebo hover přímo na elementu zastaví animaci.
-        */
-        }
         <div
             class="flex gap-6 w-fit animate-scroll-x hover:pause"
             role="group"

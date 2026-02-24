@@ -28,7 +28,6 @@ const {
     secondaryCta,
 } = Astro.props;
 
-// Vygenerujeme WebP pozadí na serveru
 const optimizedBackground = await getImage({
     src: backgroundImage,
     format: "webp",
@@ -36,14 +35,12 @@ const optimizedBackground = await getImage({
     quality: 80,
 });
 
-// Použijeme rovnou absolutní styl, který se propíše z Astro do HTML
 const bgStyle = `background-image: url('${optimizedBackground.src}');`;
 ---
 
 <section
     class="z-10 relative flex flex-col justify-center items-center bg-cover bg-no-repeat bg-center w-full min-h-screen overflow-hidden text-background hero-section"
 >
-    {/* Placeholder (základní barva, ukáže se než se stáhne fotka) */}
     <div
         class="z-0 absolute inset-0 bg-cover bg-center"
         style={`background-color: ${placeholderColor};`}
@@ -54,17 +51,14 @@ const bgStyle = `background-image: url('${optimizedBackground.src}');`;
         </div>
     </div>
 
-    {/* Samotná animovaná vrstva pozadí */}
     <div
         class="z-0 absolute inset-0 hero-bg-layer bg-cover bg-no-repeat bg-center animate-bg-zoom-out-mobile lg:animate-bg-zoom-out"
         style={bgStyle}
     >
     </div>
 
-    {/* Tmavý Overlay */}
     <div class="z-0 absolute inset-0 bg-black/55 pointer-events-none"></div>
 
-    {/* Content - Always visible */}
     <div
         class="z-10 relative grid grid-cols-12 w-full pointer-events-auto cs-container"
     >
@@ -76,7 +70,9 @@ const bgStyle = `background-image: url('${optimizedBackground.src}');`;
             </h1>
             {
                 subtitle && (
-                    <h2 class="font-bold text-xl md:text-2xl">{subtitle}</h2>
+                    <h2 class="font-bold text-xl md:text-2xl animate-fb">
+                        {subtitle}
+                    </h2>
                 )
             }
 
@@ -84,25 +80,29 @@ const bgStyle = `background-image: url('${optimizedBackground.src}');`;
                 (primaryCta || secondaryCta) && (
                     <div class="flex sm:flex-row flex-col justify-center items-center gap-4">
                         {primaryCta && (
-                            <a
-                                href={primaryCta.href}
-                                aria-label={primaryCta.label}
-                                class="bg-background hover:bg-foreground px-6 md:px-8 py-3 rounded-4xl font-bold text-popover-foreground hover:text-background text-lg md:text-xl transition-colors cursor-pointer"
-                            >
-                                {primaryCta.label}
-                            </a>
+                            <div class="animate-fb-2">
+                                <a
+                                    href={primaryCta.href}
+                                    aria-label={primaryCta.label}
+                                    class="inline-block bg-background hover:bg-foreground px-6 md:px-8 py-3 rounded-4xl font-bold text-popover-foreground hover:text-background text-lg md:text-xl transition-colors cursor-pointer"
+                                >
+                                    {primaryCta.label}
+                                </a>
+                            </div>
                         )}
                         {secondaryCta && (
-                            <a
-                                href={secondaryCta.href}
-                                aria-label={secondaryCta.label}
-                                class="group flex items-center gap-2 bg-foreground hover:bg-background px-6 md:px-8 py-3 rounded-4xl font-bold hover:text-foreground text-lg md:text-xl transition-colors cursor-pointer"
-                            >
-                                {secondaryCta.label}
-                                {secondaryCta.icon && (
-                                    <ArrowRight class="w-5 h-5 transition-all group-hover:translate-x-1" />
-                                )}
-                            </a>
+                            <div class="animate-fb-2 delay-150">
+                                <a
+                                    href={secondaryCta.href}
+                                    aria-label={secondaryCta.label}
+                                    class="group flex items-center gap-2 bg-foreground hover:bg-background px-6 md:px-8 py-3 rounded-4xl font-bold hover:text-foreground text-lg md:text-xl transition-colors cursor-pointer"
+                                >
+                                    {secondaryCta.label}
+                                    {secondaryCta.icon && (
+                                        <ArrowRight class="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                    )}
+                                </a>
+                            </div>
                         )}
                     </div>
                 )

@@ -29,10 +29,13 @@ const { items, className } = Astro.props;
             <a
                 href={item.link}
                 class={cn(
-                    "group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-full overflow-hidden transition-all hover:-translate-y-1",
+                    "group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-full overflow-hidden transition-all hover:-translate-y-1 animate-fb",
 
-                    index === 0 ? "md:col-span-2" : "md:col-span-1",
+                    index === 0
+                        ? "md:col-span-2 md:animate-fl"
+                        : "md:col-span-1",
                 )}
+                style={`transition-delay: ${index * 120}ms`}
             >
                 <Image
                     src={item.image}
@@ -62,12 +65,10 @@ const { items, className } = Astro.props;
                             </h3>
 
                             <div class="bg-background/20 opacity-0 group-hover:opacity-100 backdrop-blur-sm p-2 rounded-full transition-all translate-x-4 group-hover:translate-x-0 duration-300">
-                                {/* Lucide ikona se v Astru vyrenderuje jako statické SVG */}
                                 <ArrowRight class="w-5 h-5 text-background" />
                             </div>
                         </div>
 
-                        {/* Zobrazit popis jen pokud existuje */}
                         {item.description && (
                             <p class="opacity-80 group-hover:opacity-100 mt-3 max-w-md text-gray-200 line-clamp-2 leading-relaxed transition-opacity duration-300 delay-75">
                                 {item.description}
