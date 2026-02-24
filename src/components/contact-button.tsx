@@ -13,8 +13,7 @@ export function ContactButton({
     children,
     ...props
 }: ContactButtonProps) {
-    const finalHref =
-        (href ?? linkPrefix) ? `/${linkPrefix}/#kontakt` : "/#kontakt";
+    const finalHref = href ? href : "#kontakt";
 
     return (
         <Button

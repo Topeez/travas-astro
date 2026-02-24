@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Button } from "../components/ui/button";
+---
+
+<Layout title="Stránka nenalezena" isErrorPage>
+    <div
+        class="flex items-center bg-background px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 min-h-screen"
+    >
+        <div class="space-y-6 w-full text-center">
+            <div class="space-y-3">
+                <h1
+                    aria-label="Chyba 404"
+                    class="font-bold text-7xl! text-foreground tracking-wide"
+                >
+                    404
+                </h1>
+                <p class="text-foreground text-2xl">
+                    Nemohli jsme najít stránku, kterou jsi hledal...
+                </p>
+            </div>
+            <div class="flex justify-center items-center gap-8">
+                <Button
+                    className="bg-background hover:bg-foreground hover:shadow-xl px-8 py-6 border border-foreground rounded-4xl font-bold text-foreground hover:text-background text-xl transition-all duration-300 cursor-pointer"
+                >
+                    <a aria-label="Přejít na domovskou stránku" href="/">
+                        Domů
+                    </a>
+                </Button>
+
+                <Button
+                    id="btn-back"
+                    aria-label="Přejít zpět"
+                    className="bg-background hover:bg-background hover:shadow-xl px-8 py-6 border border-foreground rounded-4xl font-bold text-foreground hover:text-foreground text-xl transition-all duration-300 cursor-pointer"
+                >
+                    Jít zpět
+                </Button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Klientský skript pro tlačítko "Jít zpět"
+        // V Astru se spouští pouze v prohlížeči, takže máme přístup k window.history
+        document.addEventListener("astro:page-load", () => {
+            const backBtn = document.getElementById("btn-back");
+            if (backBtn) {
+                backBtn.addEventListener("click", () => {
+                    window.history.back();
+                });
+            }
+        });
+    </script>
+</Layout>

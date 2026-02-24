@@ -90,6 +90,9 @@
     .cs-container {
         @apply mx-auto px-(--cont-px) max-w-(--cont-max-w);
     }
+    #id {
+        @apply text-7xl!;
+    }
 
     .li-item {
         @apply relative after:w-full after:h-0.75 after:origin-center will-change-transform;

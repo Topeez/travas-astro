@@ -12,9 +12,10 @@ import ClientRouter from "astro/components/ClientRouter.astro";
 interface Props {
     title?: string;
     description?: string;
+    isErrorPage?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, isErrorPage = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -31,7 +32,7 @@ const { title, description } = Astro.props;
         <ClientRouter />
     </head>
     <body class="font-opensans antialiased">
-        <Header />
+        <Header forceSolidBg={isErrorPage} />
         <slot />
         <Toaster client:load />
         <BackToTop client:load />

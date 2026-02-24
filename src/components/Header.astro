@@ -3,10 +3,18 @@ import { Image } from "astro:assets";
 import logoImg from "../assets/logo.png";
 import MobileMenu from "./MobileMenu.astro";
 
+interface Props {
+    forceSolidBg?: boolean;
+}
+
+const { forceSolidBg = false } = Astro.props;
+
 const pathname = Astro.url.pathname;
 const isHomePage = pathname === "/" || pathname === "";
 const isInsectNetsArea = /^\/site-proti-hmyzu\/.+/.test(pathname);
-const initialBgClass = isInsectNetsArea ? "bg-foreground" : "backdrop-blur-lg";
+
+const alwaysSolid = isInsectNetsArea || forceSolidBg;
+const initialBgClass = alwaysSolid ? "bg-foreground" : "backdrop-blur-lg";
 
 const LINKS = [
     { href: "#sluzby", label: "Služby" },
@@ -20,7 +28,7 @@ const liClasses =
 
 <site-header
     data-is-homepage={isHomePage ? "true" : "false"}
-    data-always-solid={isInsectNetsArea ? "true" : "false"}
+    data-always-solid={alwaysSolid ? "true" : "false"}
 >
     <header
         id="main-header"
@@ -43,7 +51,6 @@ const liClasses =
                 />
             </a>
 
-            {/* Desktop Navigation */}
             <ul
                 class="hidden lg:flex items-center gap-4 font-bold text-background text-xl"
                 role="menubar"
@@ -125,7 +132,7 @@ const liClasses =
                     header.classList.add("translate-y-0");
                 }
 
-                // 2. Dynamické podbarvení (pouze pokud NEJSME na sítích)
+                // 2. Dynamické podbarvení (pouze pokud NEJSME na sítích nebo 404)
                 if (!alwaysSolid) {
                     if (currentScrollY > window.innerHeight - 80) {
                         header.classList.add("bg-foreground");
