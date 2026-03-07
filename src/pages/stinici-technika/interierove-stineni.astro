@@ -21,7 +21,6 @@ import {
 
 import heroImg from "../../assets/img/IMG_7601.jpeg";
 
-
 const breadcrumbItems = [
     { title: "Domů", href: "/" },
     { title: "Stínicí technika", href: "/stinici-technika" },
@@ -49,14 +48,16 @@ const breadcrumbItems = [
             >
                 <div class="flex flex-col gap-6">
                     <h2
-                        class="font-bold text-foreground text-3xl md:text-5xl leading-tight"
+                        class="font-bold text-foreground text-3xl md:text-5xl leading-tight animate-fb-2"
                     >
                         Interiérové stínění <span class="text-black"
                             >spojuje</span
                         > funkčnost{" "}
                         <span class="text-black">a</span> estetiku
                     </h2>
-                    <p class="text-muted-foreground text-lg leading-relaxed">
+                    <p
+                        class="text-muted-foreground text-lg leading-relaxed animate-fb"
+                    >
                         Správně zvolené stínění dokáže proměnit atmosféru celé
                         místnosti. Nejde jen o ochranu před sluncem, ale o
                         doplněk, který podtrhne styl vašeho bydlení. Nabízím
@@ -78,7 +79,10 @@ const breadcrumbItems = [
                     <ul class="space-y-4">
                         {
                             interiorShadingPros.map((pro) => (
-                                <li class="flex items-start gap-4">
+                                <li
+                                    class="flex items-start gap-4 animate-fb"
+                                    style={`transition-delay: ${interiorShadingPros.indexOf(pro) * 150}ms`}
+                                >
                                     <div class="flex justify-center items-center bg-foreground mt-1 p-1 rounded-full w-6 h-6 shrink-0">
                                         <svg
                                             class="size-3.5 text-white"
@@ -102,12 +106,12 @@ const breadcrumbItems = [
 
             {/* Typy stínění */}
             <div class="mb-12 md:text-left text-center">
-                <h3 class="mb-4 font-bold text-3xl md:text-4xl">
+                <h3 class="mb-4 font-bold text-3xl md:text-4xl animate-fb-2">
                     Typy <span class="text-foreground"
                         >interiérového stínění</span
                     >
                 </h3>
-                <p class="text-muted-foreground">
+                <p class="text-muted-foreground animate-fb">
                     Vyberte si řešení přesně pro vaše okna
                 </p>
             </div>
@@ -116,8 +120,11 @@ const breadcrumbItems = [
                 {
                     interiorShadingOptions.map((option) => (
                         <Card
-                            className="group relative hover:shadow-lg p-0 border-border/50 hover:border-foreground/50 overflow-hidden transition-all duration-300"
+                            className="group relative hover:shadow-lg p-0 border-border/50 hover:border-foreground/50 overflow-hidden transition-all animate-fb duration-300"
                             client:visible
+                            style={{
+                                transitionDelay: `${interiorShadingOptions.indexOf(option) * 150}ms`,
+                            }}
                         >
                             <div class="relative h-70 overflow-hidden">
                                 <Image

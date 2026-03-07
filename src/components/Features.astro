@@ -22,7 +22,7 @@ const { features, subtitle, class: className } = Astro.props;
             <slot name="title" />
             {
                 subtitle && (
-                    <h3 class="text-muted-foreground text-xl text-center">
+                    <h3 class="text-muted-foreground text-xl text-center animate-fb-2">
                         {subtitle}
                     </h3>
                 )
@@ -32,7 +32,10 @@ const { features, subtitle, class: className } = Astro.props;
         <div class="gap-6 grid sm:grid-cols-2 lg:grid-cols-4 text-center">
             {
                 features.map((feature) => (
-                    <div class="space-y-6">
+                    <div
+                        class="space-y-6 animate-fb"
+                        style={`transition-delay: ${features.indexOf(feature) * 150}ms`}
+                    >
                         <feature.icon
                             size={30}
                             class="mx-auto mb-4 text-foreground"

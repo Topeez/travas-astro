@@ -9,7 +9,6 @@ interface Item {
     title: string;
     description: string;
     features: string[];
-    // Důležité: imageSrc musí být ImageMetadata (importovaný obrázek), ne string!
     imageSrc: ImageMetadata;
     imageAlt?: string;
     buttonText?: string;
@@ -18,7 +17,7 @@ interface Item {
 
 interface Props {
     items: Item[];
-    class?: string; // Astro používá 'class', ne 'className'
+    class?: string;
 }
 
 const { items, class: className } = Astro.props;
@@ -37,16 +36,19 @@ const { items, class: className } = Astro.props;
                     <div
                         class={cn(isEven ? "md:order-first" : "md:order-last")}
                     >
-                        <h2 class="mb-6 font-bold text-foreground text-3xl md:text-4xl md:text-left text-center">
+                        <h2 class="mb-6 font-bold text-foreground text-3xl md:text-4xl md:text-left text-center animate-fb-2">
                             {item.title}
                         </h2>
-                        <p class="mb-6 text-muted-foreground text-lg md:text-left text-center leading-relaxed">
+                        <p class="mb-6 text-muted-foreground text-lg md:text-left text-center leading-relaxed animate-fb">
                             {item.description}
                         </p>
 
                         <ul class="space-y-4 mb-8">
                             {item.features.map((feature) => (
-                                <li class="flex items-start gap-3">
+                                <li
+                                    class="flex items-start gap-3 animate-fb"
+                                    style={`transition-delay: ${item.features.indexOf(feature) * 150}ms`}
+                                >
                                     <div class="bg-foreground mt-1 p-1 rounded-full shrink-0">
                                         <Check class="w-4 h-4 text-background" />
                                     </div>
@@ -60,7 +62,7 @@ const { items, class: className } = Astro.props;
                         <ContactButton
                             href={item.buttonLink}
                             linkPrefix={item.id}
-                            className="group inline-flex items-center"
+                            className="group inline-flex items-center animate-fb"
                             client:visible
                         >
                             {item.buttonText ||
@@ -69,7 +71,7 @@ const { items, class: className } = Astro.props;
                         </ContactButton>
                     </div>
 
-                    <div class="group relative shadow-2xl rounded-2xl w-full h-100 md:h-125 overflow-hidden">
+                    <div class="group relative shadow-2xl rounded-2xl w-full h-100 md:h-125 overflow-hidden animate-fb even:md:animate-fl odd:md:animate-fr">
                         <Image
                             src={item.imageSrc}
                             alt={item.imageAlt || item.title}

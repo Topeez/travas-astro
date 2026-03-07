@@ -49,7 +49,7 @@ function notify(type: "success" | "error", message: string) {
             description: "Nastala chyba při odesílání.",
             duration: 6000,
             icon: <X className="size-4 text-destructive" />,
-            style: { borderLeft: "4px solid var(--destructive)" }, // Červená (případně "var(--destructive)")
+            style: { borderLeft: "4px solid var(--destructive)" },
             classNames: {
                 description: "text-destructive",
             },
@@ -205,5 +205,6 @@ export function ContactForm() {
                 </Button>
             </form>
         </Form>
+        
     );
 }

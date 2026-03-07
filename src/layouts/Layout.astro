@@ -34,7 +34,7 @@ const { title, description, isErrorPage = false } = Astro.props;
         <Schema item={localBusinessSchema} />
         <ClientRouter />
     </head>
-    <body class="font-opensans antialiased">
+    <body class="overflow-x-hidden font-opensans antialiased">
         <Header forceSolidBg={isErrorPage} />
         <slot />
         <Toaster client:load />
