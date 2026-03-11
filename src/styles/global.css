@@ -189,11 +189,11 @@
     }
 
     .animate-s {
-        @apply opacity-0 transition-all duration-1300 ease-snappy;
+        @apply opacity-0 blur-sm transition-all duration-1300 ease-snappy;
     }
 
     .animate-s.is-visible {
-        @apply opacity-100;
+        @apply opacity-100 blur-none;
     }
 
     .animate-sc {

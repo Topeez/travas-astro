@@ -62,11 +62,12 @@ const { title, image1, image2, stats, subtitle2, variant1, variant2 } =
                                         {Array.from({ length: 5 }).map(
                                             (_, i) => (
                                                 <span
-                                                    class={
+                                                    class={`animate-s h-4 w-8 rounded-xs ${
                                                         i < stat.value
-                                                            ? "bg-foreground h-4 w-8 rounded-xs"
-                                                            : "h-4 w-8 bg-muted-foreground rounded-xs"
-                                                    }
+                                                            ? "bg-foreground"
+                                                            : "bg-muted-foreground"
+                                                    }`}
+                                                    style={`transition-delay: ${i * 50 + i * 50}ms`}
                                                     aria-label={
                                                         i < stat.value
                                                             ? `${stat.label} - ${stat.value} z 5`
