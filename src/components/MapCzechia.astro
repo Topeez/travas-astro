@@ -1,0 +1,51 @@
+---
+import CZ_map from "../assets/img/mapa_cr.png";
+import { Image } from "astro:assets";
+---
+
+<section
+    class="flex justify-between items-center py-16 md:py-32 w-full cs-container"
+>
+    <div class="flex justify-center items-center w-full lg:w-2/3">
+        <Image
+            src={CZ_map}
+            alt="Mapa České republiky"
+            width={2500}
+            draggable={false}
+            class="w-full animate-fade-in"
+        />
+    </div>
+    <div class="flex flex-col items-start w-full lg:w-1/3">
+        <p
+            class="font-bold text-muted-foreground text-base text-center md:text-right uppercase tracking-widest animate-fb"
+        >
+            Lokalita
+        </p>
+        <h2 class="mb-6 font-bold text-xl md:text-5xl text-left animate-fb-2">
+            Kam za Vámi přijedu?
+        </h2>
+        <p class="mb-6 text-muted-foreground text-lg animate-fb">
+            Zaměřuji se především na regiony:
+        </p>
+        <ul
+            class="space-y-2 font-bold text-muted-foreground text-lg animate-fb list-disc list-inside"
+        >
+            <li>Jihomoravský kraj</li>
+            <li>
+                Zlínský kraj <span class="font-normal"
+                    >(okresy Uherské Hradište a Kroměříž)</span
+                >
+            </li>
+            <li>
+                Olomoucký kraj <span class="font-normal"
+                    >(okresy Prostějov a Přerov)</span
+                >
+            </li>
+            <li>
+                Kraj Vysočina <span class="font-normal"
+                    >(okresy Třebíč a Ždár nad Sázavou)</span
+                >
+            </li>
+        </ul>
+    </div>
+</section>
