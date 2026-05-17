@@ -41,7 +41,7 @@ export const services: Service[] = [
     },
     {
         title: "Zimní zahrady",
-        description: "Hliníkové a plastové zimní zahrady na míru...",
+        description: "Hliníkové zimní zahrady na míru...",
         image: imgZimniZahrada,
         link: "/zimni-zahrady"
     },

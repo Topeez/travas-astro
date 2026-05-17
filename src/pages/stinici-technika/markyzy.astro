@@ -8,6 +8,8 @@ import { getImage, Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import heroImg from "../../assets/img/markyza_2.jpg";
 import markyza3Img from "../../assets/img/markyza3.jpg";
+import imgGardena200 from "../../assets/img/veranda_kulaty_box.jpg"; // dočasně, vyměň za foto Gardena
+import imgGardena350 from "../../assets/img/veranda_hranaty_box.jpg"; // dočasně, vyměň za foto Gardena
 
 const optimizedMarkyza3Img = await getImage({
     src: markyza3Img,
@@ -107,6 +109,120 @@ const awningServiceFeatures = [
                 <h4 class="font-bold text-background text-2xl text-center">
                     Kazetová markýza
                 </h4>
+            </div>
+        </div>
+        <!-- Markýza na pergolu -->
+        <div class="space-y-8 animate-fb-2">
+            <div class="text-center">
+                <h3 class="font-bold text-2xl md:text-4xl">
+                    Markýza na <span class="text-foreground">pergolu</span>
+                </h3>
+                <p class="mx-auto mt-4 max-w-2xl text-muted-foreground text-lg">
+                    Řada <strong>Climax Gardena</strong> – střešní markýzy navržené
+                    přímo pro montáž na pergolu. Instalují se <strong
+                        >pod nebo nad konstrukci</strong
+                    >, lze je spojovat do větší plochy a ovládat ručně, dálkovým
+                    ovladačem nebo přes chytrou domácnost. Vyrábí se na míru s <strong
+                        >4letou zárukou</strong
+                    >.
+                </p>
+            </div>
+
+            {/* Stats */}
+            <div class="flex flex-wrap justify-center gap-4">
+                {
+                    [
+                        { label: "Ochrana proti teplu", value: 5 },
+                        { label: "Zatemnění", value: 4 },
+                        { label: "Ochrana před UV", value: 5 },
+                        { label: "Velké plochy", value: 5 },
+                        { label: "Automatizace", value: 5 },
+                    ].map((stat) => (
+                        <div class="shadow-sm p-4 border border-muted rounded-lg text-center">
+                            <span class="font-medium text-muted-foreground text-sm md:text-base">
+                                {stat.label}
+                            </span>
+                            <div class="flex justify-center gap-1 mt-2">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                    <span
+                                        class={`animate-s h-4 w-8 rounded-xs ${
+                                            i < stat.value
+                                                ? "bg-foreground"
+                                                : "bg-muted-foreground/30"
+                                        }`}
+                                        style={`transition-delay: ${i * 50 + i * 50}ms`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div class="flex md:flex-row flex-col gap-6">
+                {/* Gardena 200/250 */}
+                <div
+                    class="relative rounded-xl w-full md:w-1/2 h-64 md:h-112.5 overflow-hidden"
+                >
+                    <Image
+                        src={imgGardena200}
+                        width={1200}
+                        height={800}
+                        alt="Climax Gardena 200/250"
+                        class="size-full object-cover"
+                    />
+                    <div
+                        class="absolute inset-0 m-4 border-2 border-white/10 rounded-2xl pointer-events-none"
+                    >
+                    </div>
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end gap-1 bg-linear-to-t from-black/70 via-20% via-black/30 to-transparent p-5"
+                    >
+                        <h4
+                            class="font-bold text-background text-2xl text-center"
+                        >
+                            Gardena 200 / 250
+                        </h4>
+                        <p class="text-background/80 text-sm text-center">
+                            Montáž <strong class="text-background"
+                                >pod konstrukci</strong
+                            > – ideální pro pergoly a menší zimní zahrady. Varianta
+                            250 umožňuje vedení v ZIP systému.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Gardena 350/550 */}
+                <div
+                    class="relative rounded-xl w-full md:w-1/2 h-64 md:h-112.5 overflow-hidden"
+                >
+                    <Image
+                        src={imgGardena350}
+                        width={1200}
+                        height={800}
+                        alt="Climax Gardena 350/550"
+                        class="size-full object-cover"
+                    />
+                    <div
+                        class="absolute inset-0 m-4 border-2 border-white/10 rounded-2xl pointer-events-none"
+                    >
+                    </div>
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end gap-1 bg-linear-to-t from-black/70 via-20% via-black/30 to-transparent p-5"
+                    >
+                        <h4
+                            class="font-bold text-background text-2xl text-center"
+                        >
+                            Gardena 350 / 550
+                        </h4>
+                        <p class="text-background/80 text-sm text-center">
+                            Montáž <strong class="text-background"
+                                >na konstrukci</strong
+                            > – pro větší plochy a náročnější instalace. Segmenty
+                            lze spojovat pro pokrytí celé střechy.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
