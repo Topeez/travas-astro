@@ -11,9 +11,10 @@ const { forceSolidBg = false } = Astro.props;
 
 const pathname = Astro.url.pathname;
 const isHomePage = pathname === "/" || pathname === "";
-const isInsectNetsArea = /^\/site-proti-hmyzu\/.+/.test(pathname);
+const isInsectNetsArea = pathname.startsWith("/site-proti-hmyzu");
+const isWinterGardenArea = pathname.startsWith("/zimni-zahrady");
 
-const alwaysSolid = isInsectNetsArea || forceSolidBg;
+const alwaysSolid = isInsectNetsArea || isWinterGardenArea || forceSolidBg;
 const initialBgClass = alwaysSolid ? "bg-foreground" : "backdrop-blur-lg";
 
 const LINKS = [

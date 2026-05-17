@@ -5,6 +5,7 @@ import imgPergola from '../assets/img/bio-pergola.jpg';
 import imgGaraz from '../assets/img/garaz.jpeg';
 import imgMarkyza from '../assets/img/markyza3.jpg';
 import imgSite from '../assets/img/IMG_7628.jpeg';
+import imgZimniZahrada from '../assets/img/zimni_zahrada.jpg';
 
 export interface Service {
     title: string;
@@ -21,12 +22,6 @@ export const services: Service[] = [
         link: "/stinici-technika"
     },
     {
-        title: "Pergoly a přístřešky",
-        description: "Bioklimatické pergoly pro vaši terasu...",
-        image: imgPergola,
-        link: "/pergoly-a-pristresky"
-    },
-    {
         title: "Garážová vrata",
         description: "Sekční, rolovací i dvoukřídlá vrata...",
         image: imgGaraz,
@@ -37,6 +32,18 @@ export const services: Service[] = [
         description: "Kazetové markýzy...",
         image: imgMarkyza,
         link: "/stinici-technika/markyzy"
+    },
+    {
+        title: "Pergoly a přístřešky",
+        description: "Bioklimatické pergoly pro vaši terasu...",
+        image: imgPergola,
+        link: "/pergoly-a-pristresky"
+    },
+    {
+        title: "Zimní zahrady",
+        description: "Hliníkové a plastové zimní zahrady na míru...",
+        image: imgZimniZahrada,
+        link: "/zimni-zahrady"
     },
     {
         title: "Sítě proti hmyzu",

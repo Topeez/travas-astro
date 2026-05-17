@@ -17,7 +17,7 @@ interface Props {
 const {
     title,
     description,
-    breadcrumbParent = { title: "Sítě proti hmyzu", href: "/site-proti-hmyzu" },
+    breadcrumbParent,
     image,
     imageAlt,
     productDescription,
@@ -31,7 +31,7 @@ const {
         aria-label="Breadcrumb navigation"
         items={[
             { title: "Domů", href: "/" },
-            breadcrumbParent,
+            ...(breadcrumbParent ? [breadcrumbParent] : []),
             { title: title },
         ]}
     />
@@ -39,13 +39,17 @@ const {
     {/* Nadpis */}
     <div class="mt-20 mb-16 text-center">
         <h1 class="font-bold text-3xl md:text-5xl animate-fb-2">{title}</h1>
-        <p class="mx-auto mt-4 max-w-3xl text-muted-foreground text-lg animate-fb">
+        <p
+            class="mx-auto mt-4 max-w-3xl text-muted-foreground text-lg animate-fb"
+        >
             {description}
         </p>
     </div>
 
     {/* Obrázek a text */}
-    <div class="flex flex-col items-center gap-12 md:grid md:grid-cols-12 animate-fb md:animate-fl">
+    <div
+        class="flex flex-col items-center gap-12 md:grid md:grid-cols-12 animate-fb md:animate-fl"
+    >
         {/* Obrázek */}
         <div
             class="relative col-span-12 md:col-span-6 w-full h-100 md:h-125 aspect-square"

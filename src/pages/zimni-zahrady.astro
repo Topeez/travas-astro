@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DetailProduktu from "../components/DetailProduktu.astro";
+
+import produktImg from "../assets/img/zimni_zahrada2.jpeg";
+---
+
+<Layout
+    title="Zimní zahrady | Travas Stínění"
+    description="Zimní zahrady na míru – hliníkové konstrukce pro celoroční využití terasy. Dodávka a montáž v Jihomoravském a Zlínském kraji."
+>
+    <DetailProduktu
+        title="Zimní zahrady"
+        description="Proměňte terasu v celoroční obytný prostor. Hliníkové zimní zahrady na míru pro rodinné domy a apartmány."
+        image={produktImg}
+        productDescription="Zimní zahrada je elegantní způsob, jak rozšířit obytný prostor domu bez nákladné stavební rekonstrukce. Dodávám hliníkové konstrukce s tepelně izolačním zasklením, které udrží teplo v zimě i příjemné chladno v létě. Každá zimní zahrada je navržena přesně na míru vašeho domu – od základního výběru profilu až po finální montáž se postarám o vše."
+        features={[
+            "Hliníkové profily s přerušeným tepelným mostem – nízké tepelné ztráty",
+            "Tepelně izolační dvojsklo nebo trojsklo dle vašich požadavků",
+            "Široká škála barevných provedení – RAL nebo eloxovaný hliník",
+            "Celoroční využití – příjemné posezení bez ohledu na počasí",
+            "Montáž na klíč včetně statického posouzení a projektu",
+        ]}
+    />
+</Layout>

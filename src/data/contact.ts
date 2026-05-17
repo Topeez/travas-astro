@@ -23,7 +23,7 @@ export const contactData = [
     {
         iconName: "mdi:facebook",
         title: "Facebook",
-        text: "travasstineni",
+        text: "Travas Stínění",
         href: "https://www.facebook.com/profile.php?id=61586158924044",
         target: "_blank"
     },

@@ -29,9 +29,9 @@ const { items, className } = Astro.props;
             <a
                 href={item.link}
                 class={cn(
-                    "group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl w-full h-full overflow-hidden transition-all hover:-translate-y-1 animate-fb",
+                    "group block relative bg-foreground shadow-sm hover:shadow-xl rounded-2xl size-full overflow-hidden transition-all hover:-translate-y-1 animate-fb",
 
-                    index === 0
+                    index === 0 || index === 3 || index === 4
                         ? "md:col-span-2 md:animate-fl"
                         : "md:col-span-1",
                 )}
@@ -42,7 +42,7 @@ const { items, className } = Astro.props;
                     alt={item.title}
                     width={index === 0 ? 1200 : 800}
                     height={index === 0 ? 800 : 600}
-                    class="z-0 absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    class="z-0 absolute inset-0 size-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
 
                 {/* 2. GRADIENT OVERLAY */}
@@ -65,7 +65,7 @@ const { items, className } = Astro.props;
                             </h3>
 
                             <div class="bg-background/20 opacity-0 group-hover:opacity-100 backdrop-blur-sm p-2 rounded-full transition-all translate-x-4 group-hover:translate-x-0 duration-300">
-                                <ArrowRight class="w-5 h-5 text-background" />
+                                <ArrowRight class="size-5 text-background" />
                             </div>
                         </div>
 
