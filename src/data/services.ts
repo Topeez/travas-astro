@@ -29,7 +29,7 @@ export const services: Service[] = [
     },
     {
         title: "Markýzy",
-        description: "Kazetové markýzy...",
+        description: "Kazetové markýzy a stínění pro vaši pergolu...",
         image: imgMarkyza,
         link: "/stinici-technika/markyzy"
     },
