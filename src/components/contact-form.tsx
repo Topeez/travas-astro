@@ -15,7 +15,7 @@ import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
 import { Button } from "../components/ui/button";
 import { toast } from "sonner";
-import { Check, X } from "lucide-react";
+import { Check, X, ArrowRight } from "lucide-react";
 
 const formSchema = z.object({
     fullname: z.string().min(2, {
@@ -28,9 +28,7 @@ const formSchema = z.object({
         .string()
         .min(10, { message: "Telefonní číslo musí mít alespoň 10 znaků" })
         .max(16, { message: "Telefonní číslo je příliš dlouhé" }),
-    message: z.string().min(10, {
-        message: "Zpráva musí mít alespoň 10 znaků.",
-    }),
+    message: z.string().optional(),
 });
 
 function notify(type: "success" | "error", message: string) {
@@ -195,16 +193,18 @@ export function ContactForm() {
                         </FormItem>
                     )}
                 />
-
                 <Button
                     type="submit"
-                    className="bg-foreground hover:bg-background mt-4 py-3 border border-foreground rounded-lg w-full font-bold text-background hover:text-foreground text-lg transition cursor-pointer"
+                    className="group flex justify-center items-center gap-2 bg-foreground hover:bg-background mt-4 px-6 md:px-8 py-3 border border-foreground rounded-lg w-full font-bold text-background hover:text-foreground text-lg md:text-xl transition-colors cursor-pointer"
                     aria-label="Submit message"
                 >
-                    Odeslat zprávu
+                    Chci bezplatnou konzultaci
+                    <ArrowRight className="mt-0.5 size-5 transition-transform group-hover:translate-x-1" />
                 </Button>
+                <p className="mt-3 text-muted-foreground text-sm text-center">
+                    Volná kapacita pro nové zakázky – odpovím do 24 h
+                </p>
             </form>
         </Form>
-        
     );
 }
