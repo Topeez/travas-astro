@@ -18,10 +18,10 @@ export const testimonials = [
         text: "Montáž garážových vrat proběhla bez problémů. Ocenil jsem individuální přístup a odborné rady. Servis je také na výborné úrovni.",
     },
     {
-        initials: "AH",
-        name: "Anna Horáková",
-        type: "Obecný servis",
-        text: "Perfektní servis od začátku do konce. Rychlá reakce na dotazy, kvalitní materiály a precizní montáž. Jsem velmi spokojená s výsledkem.",
+        initials: "ZŠ",
+        name: "Zdeněk Šimůnek",
+        type: "Pergoly",
+        text: "Naše nová hliníková pergola je naprosto úžasná. Rychlé zaměření, profesionální montáž a skvělá komunikace po celou dobu realizace. Opravdu doporučuji.",
     },
     {
         initials: "TV",
@@ -36,10 +36,10 @@ export const testimonials = [
         text: "Venkovní žaluzie nám výrazně zlepšily pohodu bydlení. Montáž byla profesionální a poradil nám i s výběrem správného typu. Výborná komunikace!",
     },
     {
-        initials: "JH",
-        name: "Josef Horák",
-        type: "Markýza",
-        text: "Investice do markýzy se určitě vyplatila. Kvalitní materiál, precizní práce a dodržení termínu. Doporučuji všem!",
+        initials: "MH",
+        name: "Michal Horna",
+        type: "Zimní zahrada",
+        text: "Díky nové zimní zahradě jsme získali další obytný prostor, který využíváme celoročně. Skvěle odvedená práce a naprostá spolehlivost.",
     },
     {
         initials: "MN",
@@ -56,8 +56,8 @@ export const testimonials = [
     {
         initials: "KV",
         name: "Klára Veselá",
-        type: "Okenní sítě",
-        text: "Montáž okenních sítí byla rychlá a bez nepořádku. Sítě perfektně sedí a plní svou funkci. Rozhodně se obrátím znovu při dalších potřebách.",
+        type: "Sítě proti hmyzu",
+        text: "Konečně můžeme větrat i v noci! Sítě do oken a balkonových dveří perfektně sedí, montáž proběhla během chvilky a nezůstal po ní žádný nepořádek.",
     },
     {
         initials: "PK",

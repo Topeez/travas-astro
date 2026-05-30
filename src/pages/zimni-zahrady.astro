@@ -1,14 +1,22 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import DetailProduktu from "../components/DetailProduktu.astro";
-
 import produktImg from "../assets/img/zimni_zahrada2.jpeg";
+import HeroSection from "../components/HeroSection.astro";
+import heroImg from "../assets/img/zimni_zahrada3.jpg";
 ---
 
 <Layout
     title="Zimní zahrady | Travas Stínění"
     description="Zimní zahrady na míru – hliníkové konstrukce pro celoroční využití terasy. Dodávka a montáž v Jihomoravském a Zlínském kraji."
 >
+    <HeroSection
+        title="Oáza klidu za každého počasí - zimní zahrady na míru vašemu domovu"
+        backgroundImage={heroImg}
+        placeholderColor="#5ca437"
+        aria-label="hero section"
+    />
+
     <DetailProduktu
         title="Zimní zahrady"
         description="Proměňte terasu v celoroční obytný prostor. Hliníkové zimní zahrady na míru pro rodinné domy a apartmány."
