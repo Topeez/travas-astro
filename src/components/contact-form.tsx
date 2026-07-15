@@ -77,7 +77,7 @@ export function ContactForm() {
                     Accept: "application/json", // Důležité pro Web3Forms, aby vracel JSON odpověď
                 },
                 body: JSON.stringify({
-                    access_key: "9b3b38e9-3122-4050-98e4-69899d00f940",
+                    access_key: "51df903c-ccea-477e-a2dc-b5cf6a0a0ed3",
                     subject: `Nová poptávka od ${data.fullname}`,
                     from_name: "Web Travas Stínění", // Opraveno z form_name na from_name, což Web3Forms podporuje pro jméno odesílatele
                     replyto: data.email, // Web3Forms očekává 'replyto', nikoliv 'reply_to'
