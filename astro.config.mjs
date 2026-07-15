@@ -12,7 +12,7 @@ export default defineConfig({
     site: "https://travasstineni.cz",
 
     integrations: [react(), icon()],
-    output: "server",
+    output: "static",
     adapter: cloudflare(),
 
     vite: {
