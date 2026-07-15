@@ -11,7 +11,6 @@
     },
     "dependencies": {
         "@astrojs/react": "^5.0.6",
-        "@astrojs/tailwind": "^6.0.2",
         "@fontsource-variable/open-sans": "^5.2.7",
         "@hookform/resolvers": "^5.2.2",
         "@iconify-json/mdi": "^1.2.3",
@@ -21,6 +20,7 @@
         "@radix-ui/react-separator": "^1.1.8",
         "@radix-ui/react-slot": "^1.2.4",
         "@radix-ui/react-tooltip": "^1.2.8",
+        "@tailwindcss/vite": "^4.3.2",
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@vercel/og": "^0.8.6",
