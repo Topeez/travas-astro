@@ -68,19 +68,32 @@ export function ContactForm() {
         },
     });
 
-    async function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(data: z.infer<typeof formSchema>) {
         try {
-            const response = await fetch("/api/contact", {
+            const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Accept: "application/json", // Důležité pro Web3Forms, aby vracel JSON odpověď
                 },
-                body: JSON.stringify(values),
+                body: JSON.stringify({
+                    access_key: "9b3b38e9-3122-4050-98e4-69899d00f940",
+                    subject: `Nová poptávka od ${data.fullname}`,
+                    from_name: "Web Travas Stínění", // Opraveno z form_name na from_name, což Web3Forms podporuje pro jméno odesílatele
+                    replyto: data.email, // Web3Forms očekává 'replyto', nikoliv 'reply_to'
+
+                    // Vlastní formátovaná pole, která se propíšou do těla emailu
+                    Jméno: data.fullname,
+                    Email: data.email,
+                    Telefon: data.phone,
+                    Zpráva: data.message,
+                }),
             });
 
-            if (!response.ok) {
-                const { error } = await response.json();
-                console.error("Chyba: ", error);
+            const result = await response.json();
+
+            if (!response.ok || !result.success) {
+                console.error("Chyba: ", result.message);
                 notify("error", "Odeslání se nezdařilo.");
                 return;
             }
