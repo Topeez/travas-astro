@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 
 import react from "@astrojs/react";
 import icon from "astro-icon";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -14,6 +15,6 @@ export default defineConfig({
     output: "static",
 
     vite: {
-        plugins: [tailwindcss()],
+        plugins: [tailwindcss(), tsconfigPaths()],
     },
 });
