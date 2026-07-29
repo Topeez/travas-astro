@@ -10,8 +10,8 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@astrojs/react": "^5.0.6",
-        "@fontsource-variable/open-sans": "^5.2.7",
+        "@astrojs/react": "^6.0.2",
+        "@fontsource-variable/open-sans": "^5.3.0",
         "@hookform/resolvers": "^5.2.2",
         "@iconify-json/mdi": "^1.2.3",
         "@lucide/astro": "^0.575.0",
@@ -24,7 +24,7 @@
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@vercel/og": "^0.8.6",
-        "astro": "^6.4.2",
+        "astro": "^7.1.6",
         "astro-icon": "^1.1.5",
         "astro-seo-schema": "^5.2.0",
         "class-variance-authority": "^0.7.1",
