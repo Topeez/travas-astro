@@ -2,28 +2,9 @@
     "$schema": "node_modules/wrangler/config-schema.json",
     "name": "travas-astro",
     "compatibility_date": "2026-07-15",
-    "pages_build_output_dir": "dist",
-    "assets": {
-        "directory": "dist",
-    },
-    // Environment variables (non-sensitive) - add to wrangler.toml or Cloudflare dashboard
-    // For secrets, use: wrangler secret put SECRET_NAME
-    // Or set in Cloudflare Pages dashboard under Settings > Environment variables
+    "compatibility_flags": ["nodejs_compat"],
     "vars": {
-        "EMAIL_PROVIDER": "resend",
-        "EMAIL_FROM": "noreply@travasstineni.cz",
-        "EMAIL_TO": "info@travasstineni.cz",
-        "HONEYPOT_FIELD": "website"
-    },
-    // Configure custom domains (optional, set in Cloudflare dashboard)
-    // "routes": [
-    //     { "pattern": "travasstineni.cz/*", "zone_name": "travasstineni.cz" }
-    // ],
-    // Build configuration
-    "build": {
-        "command": "pnpm build",
-        "cwd": "."
-    },
-    // Compatibility flags for Pages Functions
-    "compatibility_flags": ["nodejs_compat"]
+        "EMAIL_FROM": "Travas Stínění <noreply@travasstineni.cz>",
+        "EMAIL_TO": "info@travasstineni.cz"
+    }
 }
