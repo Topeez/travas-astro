@@ -1,3 +1,8 @@
+import type { APIRoute } from "astro";
+import { env } from "cloudflare:workers";
+
+export const prerender = false;
+
 interface Env {
     RESEND_API_KEY: string;
     EMAIL_FROM?: string;
@@ -21,7 +26,7 @@ const esc = (s: string) =>
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+export const POST: APIRoute = async ({ request }) => {
     let body: Record<string, unknown>;
     try {
         body = await request.json();
