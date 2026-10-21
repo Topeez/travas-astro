@@ -6,4 +6,24 @@
     "assets": {
         "directory": "dist",
     },
+    // Environment variables (non-sensitive) - add to wrangler.toml or Cloudflare dashboard
+    // For secrets, use: wrangler secret put SECRET_NAME
+    // Or set in Cloudflare Pages dashboard under Settings > Environment variables
+    "vars": {
+        "EMAIL_PROVIDER": "resend",
+        "EMAIL_FROM": "noreply@travasstineni.cz",
+        "EMAIL_TO": "info@travasstineni.cz",
+        "HONEYPOT_FIELD": "website"
+    },
+    // Configure custom domains (optional, set in Cloudflare dashboard)
+    // "routes": [
+    //     { "pattern": "travasstineni.cz/*", "zone_name": "travasstineni.cz" }
+    // ],
+    // Build configuration
+    "build": {
+        "command": "pnpm build",
+        "cwd": "."
+    },
+    // Compatibility flags for Pages Functions
+    "compatibility_flags": ["nodejs_compat"]
 }
